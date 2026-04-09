@@ -60,7 +60,7 @@ export default function Header({
           className="flex items-center gap-6 text-left"
         >
           <img
-            src="../logos/CTM.png"
+            src={`${import.meta.env.BASE_URL}logos/CTM.png`}
             alt="CT Morley logo"
             className="h-10 w-auto"
           />
