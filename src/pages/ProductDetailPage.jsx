@@ -22,11 +22,13 @@ export default function ProductDetailPage({
     "MOU-B12H-2": "MIU-B12W-2 / MOU-B12H-2",
     "MOU-B18H-2": "MIU-B18W-2 / MOU-B18H-2",
     "MOU-B24H-2": "MIU-B24W-2 / MOU-B24H-2",
+    "MOU-B33H-2": "MIU-B33HW-2 / MOU-B33H-2",
 
     "MOU-A09H-2": "MIU-A09W-2 / MOU-A09H-2",
     "MOU-A12H-2": "MIU-A12W-2 / MOU-A12H-2",
     "MOU-A18H-2": "MIU-A18W-2 / MOU-A18H-2",
     "MOU-A24H-2": "MIU-A24W-2 / MOU-A24H-2",
+    "MOU-A33H-2": "MIU-A33W-2 / MOU-A33H-2",
   };
 
   const findProductIdByModel = (targetModel) => {
@@ -201,50 +203,63 @@ export default function ProductDetailPage({
     return partialMatch;
   };
 
-  const getPairedSubmittalUrl = (indoorModel) => {
-    if (!indoorModel) return null;
+  const getPairedSubmittalUrl = (indoorModel, outdoorModel) => {
+    if (!indoorModel || !outdoorModel) return null;
 
-    const normalizedIndoor = normalizeSubmittalKey(indoorModel);
+    // Extract the model codes from the pairing string
+    const extractModelCode = (model) => {
+      // If it's a pairing string like "MIU-B09W-1 / MOU-B09G-1", extract just the model codes
+      const parts = model.split("/").map(p => p.trim());
+      return parts.length === 2 ? parts : [model];
+    };
 
-    const singleZoneOutdoorModels =
-      compatibleSingleZone && typeof compatibleSingleZone === "object"
-        ? Object.values(compatibleSingleZone).flat()
-        : [];
+    const indoorCode = extractModelCode(indoorModel)[0];
+    const outdoorCode = extractModelCode(outdoorModel)[0];
 
-    const multiZoneOutdoorModels =
-      compatibleMultiZone && typeof compatibleMultiZone === "object"
-        ? Object.values(compatibleMultiZone).flat()
-        : [];
+    // Format: outdoor&indoor (e.g., "MOU-B09G-1&MIU-B09W-1")
+    const pairedFormat = `${outdoorCode}&${indoorCode}`;
+    const normalizedPaired = normalizeSubmittalKey(pairedFormat);
 
-    const outdoorModels = [
-      ...new Set([...singleZoneOutdoorModels, ...multiZoneOutdoorModels]),
-    ].filter(Boolean);
+    for (const [path, module] of Object.entries(submittals)) {
+      const fileName = path.split("/").pop().replace(/\.pdf$/i, "");
+      const normalizedFileName = normalizeSubmittalKey(fileName);
 
-    for (const outdoorModel of outdoorModels) {
-      const normalizedOutdoor = normalizeSubmittalKey(outdoorModel);
+      if (normalizedFileName === normalizedPaired) {
+        return module?.default || module;
+      }
+    }
 
-      for (const [path, module] of Object.entries(submittals)) {
-        const fileName = path.split("/").pop().replace(/\.pdf$/i, "");
-        const normalizedFileName = normalizeSubmittalKey(fileName);
+    // Fallback: try legacy format (both models in any order)
+    const normalizedIndoor = normalizeSubmittalKey(indoorCode);
+    const normalizedOutdoor = normalizeSubmittalKey(outdoorCode);
 
-        if (
-          normalizedFileName.includes(normalizedIndoor) &&
-          normalizedFileName.includes(normalizedOutdoor)
-        ) {
-          return module?.default || module;
-        }
+    for (const [path, module] of Object.entries(submittals)) {
+      const fileName = path.split("/").pop().replace(/\.pdf$/i, "");
+      const normalizedFileName = normalizeSubmittalKey(fileName);
+
+      if (
+        normalizedFileName.includes(normalizedIndoor) &&
+        normalizedFileName.includes(normalizedOutdoor)
+      ) {
+        return module?.default || module;
       }
     }
 
     return null;
   };
 
-  const pairingSubmittalUrl =
+  const singleZoneSubmittalUrl =
     unit?.singleZoneSubmittalUrl ||
     family?.singleZoneSubmittalUrl ||
+    (() => {
+      const firstOutdoor = Object.values(compatibleSingleZone)?.[0]?.[0];
+      return firstOutdoor ? getPairedSubmittalUrl(unit?.model, firstOutdoor) : null;
+    })() ||
+    getSubmittalUrlFromFilename(unit?.model);
+
+  const multiZoneSubmittalUrl =
     unit?.multiZoneSubmittalUrl ||
     family?.multiZoneSubmittalUrl ||
-    getPairedSubmittalUrl(unit?.model) ||
     getSubmittalUrlFromFilename(unit?.model);
 
   const technicalDocsUrl =
@@ -397,61 +412,71 @@ export default function ProductDetailPage({
 
         <div className="space-y-6">
           {selectionType === "indoor" &&
-            (compatibleSingleZoneIsNone || Object.keys(compatibleSingleZone).length > 0) && (
+            (compatibleSingleZoneIsNone || 
+              Object.keys(compatibleSingleZone).length > 0 || 
+              compatibleMultiZone) && (
               <div className="border border-slate-200 bg-white p-6">
                 <h2 className="text-lg font-semibold text-slate-900">
-                  Compatible Single-Zone Outdoor Units
+                  Outdoor Unit Pairings
                 </h2>
 
-                {compatibleSingleZoneIsNone ? (
+                {compatibleSingleZoneIsNone && !compatibleMultiZone ? (
                   <p className="mt-4 text-sm text-slate-900">None</p>
                 ) : (
-                  <div className="mt-4 grid gap-4 md:grid-cols-2">
-                    {Object.entries(compatibleSingleZone).map(([group, models]) => (
-                      <div key={group}>
-                        <div className="text-sm font-semibold text-orange-700">
-                          {renderHeatingLabel(group)}
-                        </div>
+                  <>
+                    <div className="mt-4 grid gap-4 md:grid-cols-2">
+                      {Object.keys(compatibleSingleZone).length > 0 && Object.entries(compatibleSingleZone).map(([group, models]) => (
+                        <div key={`single-${group}`}>
+                          <div className="text-sm font-semibold text-orange-700">
+                            {renderHeatingLabel(group)}
+                          </div>
 
-                        <ul className="mt-2 list-disc space-y-2 pl-5 text-sm text-slate-700">
-                          {models.map((outdoorModel) => (
-                            <li key={outdoorModel}>
-                              {renderLinkedModel(outdoorModel)}
-                            </li>
-                          ))}
-                        </ul>
+                          <ul className="mt-2 list-disc space-y-2 pl-5 text-sm text-slate-700">
+                            {models.map((outdoorModel) => (
+                              <li key={outdoorModel}>
+                                {renderLinkedModel(outdoorModel)}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                      {compatibleMultiZone && Object.entries(compatibleMultiZone).map(([group, models]) => (
+                        <div key={`multi-${group}`}>
+                          <div className="text-sm font-semibold text-orange-700">
+                            {renderHeatingLabel(group)}
+                          </div>
+
+                          <ul className="mt-2 list-disc space-y-2 pl-5 text-sm text-slate-700">
+                            {models.map((outdoorModel) => (
+                              <li key={outdoorModel}>
+                                {renderLinkedModel(outdoorModel)}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+
+                    {unit?.model && (
+                      <div className="mt-6">
+                        {renderDocButton(
+                          "Pairing Submittal",
+                          (() => {
+                            // Get the first outdoor model from combined single and multi zone
+                            const firstSingleZoneModel = Object.values(compatibleSingleZone)?.[0]?.[0];
+                            const firstMultiZoneModel = Object.values(compatibleMultiZone || {})?.[0]?.[0];
+                            const outdoorModel = firstSingleZoneModel || firstMultiZoneModel;
+
+                            if (!outdoorModel) return null;
+                            return getPairedSubmittalUrl(unit.model, outdoorModel);
+                          })()
+                        )}
                       </div>
-                    ))}
-                  </div>
+                    )}
+                  </>
                 )}
               </div>
             )}
-
-          {selectionType === "indoor" && compatibleMultiZone && (
-            <div className="border border-slate-200 bg-white p-6">
-              <h2 className="text-lg font-semibold text-slate-900">
-                Compatible Multi-Zone Outdoor Units
-              </h2>
-
-              <div className="mt-4 grid gap-4 md:grid-cols-2">
-                {Object.entries(compatibleMultiZone).map(([group, models]) => (
-                  <div key={group}>
-                    <div className="text-sm font-semibold text-orange-700">
-                      {renderHeatingLabel(group)}
-                    </div>
-
-                    <ul className="mt-2 list-disc space-y-2 pl-5 text-sm text-slate-700">
-                      {models.map((outdoorModel) => (
-                        <li key={outdoorModel}>
-                          {renderLinkedModel(outdoorModel)}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
 
           {selectionType === "indoor" &&
             unit?.model &&
