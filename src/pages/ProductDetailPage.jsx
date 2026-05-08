@@ -202,14 +202,25 @@ export default function ProductDetailPage({
   };
 
   const getPairedSubmittalUrl = (indoorModel) => {
-    if (!indoorModel || !compatibleSingleZone) return null;
+    if (!indoorModel) return null;
 
     const normalizedIndoor = normalizeSubmittalKey(indoorModel);
-    const outdoorModels = Object.values(compatibleSingleZone).flat();
+
+    const singleZoneOutdoorModels =
+      compatibleSingleZone && typeof compatibleSingleZone === "object"
+        ? Object.values(compatibleSingleZone).flat()
+        : [];
+
+    const multiZoneOutdoorModels =
+      compatibleMultiZone && typeof compatibleMultiZone === "object"
+        ? Object.values(compatibleMultiZone).flat()
+        : [];
+
+    const outdoorModels = [
+      ...new Set([...singleZoneOutdoorModels, ...multiZoneOutdoorModels]),
+    ].filter(Boolean);
 
     for (const outdoorModel of outdoorModels) {
-      if (!outdoorModel) continue;
-
       const normalizedOutdoor = normalizeSubmittalKey(outdoorModel);
 
       for (const [path, module] of Object.entries(submittals)) {
@@ -228,15 +239,12 @@ export default function ProductDetailPage({
     return null;
   };
 
-  const singleZoneSubmittalUrl =
+  const pairingSubmittalUrl =
     unit?.singleZoneSubmittalUrl ||
     family?.singleZoneSubmittalUrl ||
-    getPairedSubmittalUrl(unit?.model) ||
-    getSubmittalUrlFromFilename(unit?.model);
-
-  const multiZoneSubmittalUrl =
     unit?.multiZoneSubmittalUrl ||
     family?.multiZoneSubmittalUrl ||
+    getPairedSubmittalUrl(unit?.model) ||
     getSubmittalUrlFromFilename(unit?.model);
 
   const technicalDocsUrl =
