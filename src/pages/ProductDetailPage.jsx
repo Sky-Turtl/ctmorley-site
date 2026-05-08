@@ -248,19 +248,43 @@ export default function ProductDetailPage({
     return null;
   };
 
+  // Check if this is a pairing page (model contains " / ")
+  const isPairingPage = unit?.model && unit.model.includes(" / ");
+
+  // Extract models from pairing string if applicable
+  const extractPairingModels = (model) => {
+    if (!model || !model.includes(" / ")) return { indoor: null, outdoor: null };
+    const [indoor, outdoor] = model.split(" / ").map(m => m.trim());
+    return { indoor, outdoor };
+  };
+
+  const pairingModels = extractPairingModels(unit?.model);
+
+  // For pairing pages, get the pairing submittal URL
+  const pairingSubmittalUrl = isPairingPage
+    ? (() => {
+        if (!pairingModels.indoor || !pairingModels.outdoor) return null;
+        return getPairedSubmittalUrl(pairingModels.indoor, pairingModels.outdoor);
+      })()
+    : null;
+
   const singleZoneSubmittalUrl =
-    unit?.singleZoneSubmittalUrl ||
-    family?.singleZoneSubmittalUrl ||
-    (() => {
-      const firstOutdoor = Object.values(compatibleSingleZone)?.[0]?.[0];
-      return firstOutdoor ? getPairedSubmittalUrl(unit?.model, firstOutdoor) : null;
-    })() ||
-    getSubmittalUrlFromFilename(unit?.model);
+    !isPairingPage && (
+      unit?.singleZoneSubmittalUrl ||
+      family?.singleZoneSubmittalUrl ||
+      (() => {
+        const firstOutdoor = Object.values(compatibleSingleZone)?.[0]?.[0];
+        return firstOutdoor ? getPairedSubmittalUrl(unit?.model, firstOutdoor) : null;
+      })() ||
+      getSubmittalUrlFromFilename(unit?.model)
+    );
 
   const multiZoneSubmittalUrl =
-    unit?.multiZoneSubmittalUrl ||
-    family?.multiZoneSubmittalUrl ||
-    getSubmittalUrlFromFilename(unit?.model);
+    !isPairingPage && (
+      unit?.multiZoneSubmittalUrl ||
+      family?.multiZoneSubmittalUrl ||
+      getSubmittalUrlFromFilename(unit?.model)
+    );
 
   const technicalDocsUrl =
     unit?.technicalDocsUrl ||
@@ -372,9 +396,18 @@ export default function ProductDetailPage({
             )}
 
             <div className="mt-6 space-y-3">
-              {renderDocButton("Single Zone Submittal", singleZoneSubmittalUrl, true)}
-              {renderDocButton("Multi Zone Submittal", multiZoneSubmittalUrl)}
-              {renderDocButton("Technical Documents", technicalDocsUrl)}
+              {isPairingPage ? (
+                <>
+                  {renderDocButton("Pairing Submittal", pairingSubmittalUrl, true)}
+                  {renderDocButton("Technical Documents", technicalDocsUrl)}
+                </>
+              ) : (
+                <>
+                  {renderDocButton("Single Zone Submittal", singleZoneSubmittalUrl, true)}
+                  {renderDocButton("Multi Zone Submittal", multiZoneSubmittalUrl)}
+                  {renderDocButton("Technical Documents", technicalDocsUrl)}
+                </>
+              )}
             </div>
 
             {!singleZoneSubmittalUrl &&
@@ -411,7 +444,7 @@ export default function ProductDetailPage({
         </div>
 
         <div className="space-y-6">
-          {selectionType === "indoor" &&
+          {!isPairingPage && selectionType === "indoor" &&
             (compatibleSingleZoneIsNone || 
               Object.keys(compatibleSingleZone).length > 0 || 
               compatibleMultiZone) && (
@@ -423,62 +456,43 @@ export default function ProductDetailPage({
                 {compatibleSingleZoneIsNone && !compatibleMultiZone ? (
                   <p className="mt-4 text-sm text-slate-900">None</p>
                 ) : (
-                  <>
-                    <div className="mt-4 grid gap-4 md:grid-cols-2">
-                      {Object.keys(compatibleSingleZone).length > 0 && Object.entries(compatibleSingleZone).map(([group, models]) => (
-                        <div key={`single-${group}`}>
-                          <div className="text-sm font-semibold text-orange-700">
-                            {renderHeatingLabel(group)}
-                          </div>
-
-                          <ul className="mt-2 list-disc space-y-2 pl-5 text-sm text-slate-700">
-                            {models.map((outdoorModel) => (
-                              <li key={outdoorModel}>
-                                {renderLinkedModel(outdoorModel)}
-                              </li>
-                            ))}
-                          </ul>
+                  <div className="mt-4 grid gap-4 md:grid-cols-2">
+                    {Object.keys(compatibleSingleZone).length > 0 && Object.entries(compatibleSingleZone).map(([group, models]) => (
+                      <div key={`single-${group}`}>
+                        <div className="text-sm font-semibold text-orange-700">
+                          {renderHeatingLabel(group)}
                         </div>
-                      ))}
-                      {compatibleMultiZone && Object.entries(compatibleMultiZone).map(([group, models]) => (
-                        <div key={`multi-${group}`}>
-                          <div className="text-sm font-semibold text-orange-700">
-                            {renderHeatingLabel(group)}
-                          </div>
 
-                          <ul className="mt-2 list-disc space-y-2 pl-5 text-sm text-slate-700">
-                            {models.map((outdoorModel) => (
-                              <li key={outdoorModel}>
-                                {renderLinkedModel(outdoorModel)}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-
-                    {unit?.model && (
-                      <div className="mt-6">
-                        {renderDocButton(
-                          "Pairing Submittal",
-                          (() => {
-                            // Get the first outdoor model from combined single and multi zone
-                            const firstSingleZoneModel = Object.values(compatibleSingleZone)?.[0]?.[0];
-                            const firstMultiZoneModel = Object.values(compatibleMultiZone || {})?.[0]?.[0];
-                            const outdoorModel = firstSingleZoneModel || firstMultiZoneModel;
-
-                            if (!outdoorModel) return null;
-                            return getPairedSubmittalUrl(unit.model, outdoorModel);
-                          })()
-                        )}
+                        <ul className="mt-2 list-disc space-y-2 pl-5 text-sm text-slate-700">
+                          {models.map((outdoorModel) => (
+                            <li key={outdoorModel}>
+                              {renderLinkedModel(outdoorModel)}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                    )}
-                  </>
+                    ))}
+                    {compatibleMultiZone && Object.entries(compatibleMultiZone).map(([group, models]) => (
+                      <div key={`multi-${group}`}>
+                        <div className="text-sm font-semibold text-orange-700">
+                          {renderHeatingLabel(group)}
+                        </div>
+
+                        <ul className="mt-2 list-disc space-y-2 pl-5 text-sm text-slate-700">
+                          {models.map((outdoorModel) => (
+                            <li key={outdoorModel}>
+                              {renderLinkedModel(outdoorModel)}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
                 )}
               </div>
             )}
 
-          {selectionType === "indoor" &&
+          {!isPairingPage && selectionType === "indoor" &&
             unit?.model &&
             getRequiredAccessories(unit.model).length > 0 && (
               <div className="border border-slate-200 bg-white p-6">
