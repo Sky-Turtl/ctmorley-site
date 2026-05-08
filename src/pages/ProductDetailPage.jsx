@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { getProductDetail } from "../data/productDetail";
-import singleZonePdf from "../assets/Submittals/single-zone.pdf";
-import multiZonePdf from "../assets/Submittals/multi-zone.pdf";
+const submittals = import.meta.glob('../assets/Submittals/*.pdf', { eager: true });
 
 export default function ProductDetailPage({
   productFamilies,
@@ -177,15 +176,68 @@ export default function ProductDetailPage({
 
   const compatibleMultiZone = family?.compatibleMultiZoneOutdoorUnits || null;
 
+  const normalizeSubmittalKey = (value) =>
+    value?.toString().replace(/[^a-zA-Z0-9-]/g, "").toLowerCase();
+
+  const getSubmittalUrlFromFilename = (name) => {
+    if (!name) return null;
+
+    const normalizedTarget = normalizeSubmittalKey(name);
+    let partialMatch = null;
+
+    for (const [path, module] of Object.entries(submittals)) {
+      const fileName = path.split("/").pop().replace(/\.pdf$/i, "");
+      const normalizedFileName = normalizeSubmittalKey(fileName);
+
+      if (normalizedFileName === normalizedTarget) {
+        return module?.default || module;
+      }
+
+      if (!partialMatch && normalizedFileName.includes(normalizedTarget)) {
+        partialMatch = module?.default || module;
+      }
+    }
+
+    return partialMatch;
+  };
+
+  const getPairedSubmittalUrl = (indoorModel) => {
+    if (!indoorModel || !compatibleSingleZone) return null;
+
+    const normalizedIndoor = normalizeSubmittalKey(indoorModel);
+    const outdoorModels = Object.values(compatibleSingleZone).flat();
+
+    for (const outdoorModel of outdoorModels) {
+      if (!outdoorModel) continue;
+
+      const normalizedOutdoor = normalizeSubmittalKey(outdoorModel);
+
+      for (const [path, module] of Object.entries(submittals)) {
+        const fileName = path.split("/").pop().replace(/\.pdf$/i, "");
+        const normalizedFileName = normalizeSubmittalKey(fileName);
+
+        if (
+          normalizedFileName.includes(normalizedIndoor) &&
+          normalizedFileName.includes(normalizedOutdoor)
+        ) {
+          return module?.default || module;
+        }
+      }
+    }
+
+    return null;
+  };
+
   const singleZoneSubmittalUrl =
     unit?.singleZoneSubmittalUrl ||
     family?.singleZoneSubmittalUrl ||
-    singleZonePdf;
+    getPairedSubmittalUrl(unit?.model) ||
+    getSubmittalUrlFromFilename(unit?.model);
 
   const multiZoneSubmittalUrl =
     unit?.multiZoneSubmittalUrl ||
     family?.multiZoneSubmittalUrl ||
-    multiZonePdf;
+    getSubmittalUrlFromFilename(unit?.model);
 
   const technicalDocsUrl =
     unit?.technicalDocsUrl ||
