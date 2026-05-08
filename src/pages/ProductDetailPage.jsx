@@ -260,31 +260,33 @@ export default function ProductDetailPage({
 
   const pairingModels = extractPairingModels(unit?.model);
 
-  // For pairing pages, get the pairing submittal URL
-  const pairingSubmittalUrl = isPairingPage
-    ? (() => {
-        if (!pairingModels.indoor || !pairingModels.outdoor) return null;
+  // Get the appropriate submittal URL based on page type
+  const submittalUrl = (() => {
+    if (isPairingPage) {
+      // For pairing pages, look for the pairing submittal
+      if (pairingModels.indoor && pairingModels.outdoor) {
         return getPairedSubmittalUrl(pairingModels.indoor, pairingModels.outdoor);
-      })()
-    : null;
+      }
+    } else if (selectionType === "indoor") {
+      // For indoor unit pages, try single zone, then multi zone, then direct model
+      const directUrl = 
+        unit?.singleZoneSubmittalUrl ||
+        family?.singleZoneSubmittalUrl ||
+        getSubmittalUrlFromFilename(unit?.model);
+      if (directUrl) return directUrl;
 
-  const singleZoneSubmittalUrl =
-    !isPairingPage && (
-      unit?.singleZoneSubmittalUrl ||
-      family?.singleZoneSubmittalUrl ||
-      (() => {
-        const firstOutdoor = Object.values(compatibleSingleZone)?.[0]?.[0];
-        return firstOutdoor ? getPairedSubmittalUrl(unit?.model, firstOutdoor) : null;
-      })() ||
-      getSubmittalUrlFromFilename(unit?.model)
-    );
-
-  const multiZoneSubmittalUrl =
-    !isPairingPage && (
-      unit?.multiZoneSubmittalUrl ||
-      family?.multiZoneSubmittalUrl ||
-      getSubmittalUrlFromFilename(unit?.model)
-    );
+      // Try paired submittal with first outdoor model
+      const firstOutdoor = Object.values(compatibleSingleZone)?.[0]?.[0];
+      if (firstOutdoor) {
+        return getPairedSubmittalUrl(unit?.model, firstOutdoor);
+      }
+      return null;
+    } else {
+      // For outdoor units, just use the model name
+      return getSubmittalUrlFromFilename(unit?.model || model);
+    }
+    return null;
+  })();
 
   const technicalDocsUrl =
     unit?.technicalDocsUrl ||
@@ -396,18 +398,8 @@ export default function ProductDetailPage({
             )}
 
             <div className="mt-6 space-y-3">
-              {isPairingPage ? (
-                <>
-                  {renderDocButton("Pairing Submittal", pairingSubmittalUrl, true)}
-                  {renderDocButton("Technical Documents", technicalDocsUrl)}
-                </>
-              ) : (
-                <>
-                  {renderDocButton("Single Zone Submittal", singleZoneSubmittalUrl, true)}
-                  {renderDocButton("Multi Zone Submittal", multiZoneSubmittalUrl)}
-                  {renderDocButton("Technical Documents", technicalDocsUrl)}
-                </>
-              )}
+              {renderDocButton("Submittal", submittalUrl, true)}
+              {renderDocButton("Technical Documents", technicalDocsUrl)}
             </div>
 
             {!singleZoneSubmittalUrl &&
