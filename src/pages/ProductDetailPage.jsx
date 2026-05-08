@@ -249,16 +249,16 @@ export default function ProductDetailPage({
   };
 
   // Check if this is a pairing page (model contains " / ")
-  const isPairingPage = unit?.model && unit.model.includes(" / ");
+  const isPairingPage = (unit?.model || detail?.model)?.includes(" / ");
 
   // Extract models from pairing string if applicable
-  const extractPairingModels = (model) => {
-    if (!model || !model.includes(" / ")) return { indoor: null, outdoor: null };
-    const [indoor, outdoor] = model.split(" / ").map(m => m.trim());
+  const extractPairingModels = (modelStr) => {
+    if (!modelStr || !modelStr.includes(" / ")) return { indoor: null, outdoor: null };
+    const [indoor, outdoor] = modelStr.split(" / ").map(m => m.trim());
     return { indoor, outdoor };
   };
 
-  const pairingModels = extractPairingModels(unit?.model);
+  const pairingModels = extractPairingModels(unit?.model || detail?.model);
 
   // Get the appropriate submittal URL based on page type
   const submittalUrl = (() => {
@@ -283,7 +283,7 @@ export default function ProductDetailPage({
       return null;
     } else {
       // For outdoor units, just use the model name
-      return getSubmittalUrlFromFilename(unit?.model || model);
+      return getSubmittalUrlFromFilename(unit?.model || detail?.model);
     }
     return null;
   })();
@@ -402,8 +402,7 @@ export default function ProductDetailPage({
               {renderDocButton("Technical Documents", technicalDocsUrl)}
             </div>
 
-            {!singleZoneSubmittalUrl &&
-              !multiZoneSubmittalUrl &&
+            {!submittalUrl &&
               !technicalDocsUrl && (
                 <p className="mt-3 text-xs text-slate-500">
                   Document links have not been added for this product yet.
