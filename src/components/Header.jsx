@@ -9,7 +9,9 @@ export default function Header({
 }) {
   const [query, setQuery] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showLocatorDropdown, setShowLocatorDropdown] = useState(false);
   const containerRef = useRef(null);
+  const locatorRef = useRef(null);
 
   const navItems = [
     { label: "Home", key: "home" },
@@ -57,7 +59,7 @@ export default function Header({
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <button
           onClick={() => setPage("home")}
-          className="flex items-center gap-6 text-left"
+          className="cursor-pointer flex items-center gap-6 text-left"
         >
           <img
             src={`${import.meta.env.BASE_URL}logos/CTM.png`}
@@ -81,7 +83,7 @@ export default function Header({
               <button
                 key={item.key}
                 onClick={() => setPage(item.key)}
-                className={`text-sm font-medium ${
+                className={`cursor-pointer text-sm font-medium ${
                   active
                     ? "text-orange-700"
                     : "text-slate-600 hover:text-slate-900"
@@ -91,6 +93,44 @@ export default function Header({
               </button>
             );
           })}
+
+          <div
+            ref={locatorRef}
+            onMouseEnter={() => setShowLocatorDropdown(true)}
+            onMouseLeave={() => setShowLocatorDropdown(false)}
+            className="relative"
+          >
+            <button className="flex cursor-pointer items-center gap-1 text-sm font-medium text-slate-600 hover:text-slate-900">
+              Locator
+              <svg
+                className={`h-4 w-4 transition-transform ${
+                  showLocatorDropdown ? "rotate-180" : ""
+                }`}
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 7.5L10 12.5L15 7.5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+
+            {showLocatorDropdown && (
+              <div className="absolute right-0 top-full z-50 mt-2 w-48 rounded-sm border border-slate-200 bg-white shadow-lg">
+                <button
+                  type="button"
+                  className="cursor-pointer block w-full px-4 py-3 text-left text-sm font-medium text-slate-900 hover:bg-slate-50"
+                >
+                  Wholesale Distributors
+                </button>
+              </div>
+            )}
+          </div>
         </nav>
 
         <div className="hidden md:flex md:items-center">
@@ -143,7 +183,7 @@ export default function Header({
                         key={item.id}
                         type="button"
                         onClick={() => handleSuggestionClick(item.id)}
-                        className="block w-full border-b border-slate-100 px-4 py-3 text-left hover:bg-slate-50"
+                        className="cursor-pointer block w-full border-b border-slate-100 px-4 py-3 text-left hover:bg-slate-50"
                       >
                         <div className="text-sm font-semibold text-slate-900">
                           {item.title}
@@ -161,7 +201,7 @@ export default function Header({
                         setShowDropdown(false);
                         onSearch(query);
                       }}
-                      className="block w-full bg-slate-50 px-4 py-3 text-left text-sm font-semibold text-orange-700 hover:bg-orange-50"
+                      className="cursor-pointer block w-full bg-slate-50 px-4 py-3 text-left text-sm font-semibold text-orange-700 hover:bg-orange-50"
                     >
                       View all results
                     </button>

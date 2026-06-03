@@ -121,7 +121,7 @@ export default function ProductDetailPage({
       <button
         type="button"
         onClick={() => openProductDetail(productId)}
-        className="bg-transparent p-0 text-left text-sm text-slate-700 transition hover:text-orange-700"
+        className="cursor-pointer bg-transparent p-0 text-left text-sm text-slate-700 transition hover:text-orange-700"
       >
         {model}
       </button>
@@ -133,7 +133,7 @@ export default function ProductDetailPage({
       <section className="mx-auto max-w-5xl px-6 py-10">
         <button
           onClick={handleBack}
-          className="mb-6 text-sm font-semibold text-orange-700 hover:text-orange-800"
+          className="cursor-pointer mb-6 text-sm font-semibold text-orange-700 hover:text-orange-800"
         >
           ← Back to Products
         </button>
@@ -373,7 +373,7 @@ export default function ProductDetailPage({
     <section className="mx-auto max-w-5xl px-6 py-10">
       <button
         onClick={handleBack}
-        className="mb-6 text-sm font-semibold text-orange-700 hover:text-orange-800"
+        className="mb-6 cursor-pointer text-sm font-semibold text-orange-700 hover:text-orange-800"
       >
         ← Back to Products
       </button>

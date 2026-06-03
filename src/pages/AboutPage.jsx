@@ -14,23 +14,16 @@ export default function AboutPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-16">
-        <div className="grid gap-8 md:grid-cols-2">
-          <div className="border border-slate-200 bg-white p-8">
-            <h3 className="text-2xl font-semibold text-slate-900">Who we are</h3>
-            <p className="mt-6 text-base leading-8 text-slate-600">
-              CT Morley provides heating and cooling products across residential and light
-              commercial applications, with solutions organized to help contractors,
-              distributors, and homeowners identify the right equipment more efficiently.
-            </p>
-          </div>
-          <div className="border border-slate-200 bg-white p-8">
-            <h3 className="text-2xl font-semibold text-slate-900">Why customers choose us</h3>
-            <p className="mt-6 text-base leading-8 text-slate-600">
-              Our lineup supports multiple refrigerant platforms, installation styles, and
-              heating configurations so customers can find dependable options for a wide range
-              of project needs.
-            </p>
-          </div>
+        <div className="space-y-6">
+          <p className="text-base leading-8 text-slate-600">
+            CTM is a world-class leader in heat pump systems and solutions. At CTM we provide our customers with innovative products that optimize indoor environments through a broad range of energy-efficient single-zone and multi-zone heat pump systems. From our flexible controls to our industry-leading air handlers, CTM has a solution for any residential and light commercial application.
+          </p>
+          <p className="text-base leading-8 text-slate-600">
+            CTM heat pump systems have a reputation for reliability, premium quality, and advanced features. Our products are available through an expansive network of suppliers, known for their skills in distributing, marketing, and supporting both residential and light commercial systems.
+          </p>
+          <p className="text-base leading-8 text-slate-600">
+            CTM is a brand rooted in innovation, conservation, and diversity. In conjunction with providing energy-efficient heat pump solutions, CTM also has a deep commitment to our environment. We support sustainable equipment production by incorporating renewable, reusable, and recyclable materials while minimizing the use of toxic substances in manufacturing our products.
+          </p>
         </div>
       </section>
     </>

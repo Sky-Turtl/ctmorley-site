@@ -22,14 +22,14 @@ export default function HomePage({ openProducts, setPage }) {
             <div className="mt-8 flex gap-6">
               <button
                 onClick={() => openProducts()}
-                className="bg-orange-600 px-6 py-3 text-sm font-semibold text-white"
+                className="cursor-pointer bg-orange-600 px-6 py-3 text-sm font-semibold text-white"
               >
                 View Products
               </button>
 
               <button
                 onClick={() => setPage("contact")}
-                className="border px-6 py-3 text-sm font-semibold"
+                className="cursor-pointer border px-6 py-3 text-sm font-semibold"
               >
                 Contact Us
               </button>
@@ -44,7 +44,7 @@ export default function HomePage({ openProducts, setPage }) {
             <div className="mt-4 space-y-3">
               <button
                 onClick={() => openProducts("Residential")}
-                className="w-full border-b pb-3 text-left"
+                className="w-full cursor-pointer border-b pb-3 text-left"
               >
                 <div className="font-semibold">Residential</div>
                 <div className="text-sm text-slate-600">
@@ -54,7 +54,7 @@ export default function HomePage({ openProducts, setPage }) {
 
               <button
                 onClick={() => openProducts("Light Commercial")}
-                className="w-full text-left"
+                className="w-full cursor-pointer text-left"
               >
                 <div className="font-semibold">Light Commercial</div>
                 <div className="text-sm text-slate-600">
@@ -82,7 +82,7 @@ export default function HomePage({ openProducts, setPage }) {
             </p>
             <button
               onClick={() => openProducts("Residential")}
-              className="mt-6 text-sm font-semibold text-orange-700"
+              className="mt-6 cursor-pointer text-sm font-semibold text-orange-700"
             >
               Explore Residential →
             </button>
@@ -96,7 +96,7 @@ export default function HomePage({ openProducts, setPage }) {
             </p>
             <button
               onClick={() => openProducts("Light Commercial")}
-              className="mt-6 text-sm font-semibold text-orange-700"
+              className="mt-6 cursor-pointer text-sm font-semibold text-orange-700"
             >
               Explore Light Commercial →
             </button>
@@ -135,13 +135,13 @@ export default function HomePage({ openProducts, setPage }) {
             <div className="mt-6 flex flex-wrap gap-4">
               <button
                 onClick={() => setPage("contact")}
-                className="rounded-sm bg-orange-600 px-6 py-3 text-sm font-semibold text-white hover:bg-orange-700"
+                className="cursor-pointer rounded-sm bg-orange-600 px-6 py-3 text-sm font-semibold text-white hover:bg-orange-700"
               >
                 Contact Us
               </button>
               <button
                 onClick={() => setPage("contact")}
-                className="rounded-sm border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                className="cursor-pointer rounded-sm border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50"
               >
                 Contact Our Team
               </button>
