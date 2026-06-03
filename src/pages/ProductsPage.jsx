@@ -8,6 +8,23 @@ export default function ProductsPage({
 }) {
   const families = Object.entries(productFamilies || {});
 
+  const titleToImageFilename = (title, refrigerant) => {
+    if (!title) return "";
+    // Convert title to lowercase and replace spaces with hyphens
+    let baseName = title
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[()]/g, "") // Remove parentheses
+      .replace(/r\d+[a-z]+/g, ""); // Remove refrigerant codes like r454b, r410a
+    // Remove any trailing hyphens
+    baseName = baseName.replace(/-+$/, "");
+    // Extract refrigerant code (e.g., R410A -> 410a, R454B -> 454b)
+    const refCode = refrigerant
+      .replace(/R/, "")
+      .toLowerCase();
+    return `${baseName}-cover-${refCode}`;
+  };
+
   const heatingLabelMap = {
     standard: "Standard Heating",
     extreme: "Extreme Heating",
@@ -147,7 +164,7 @@ export default function ProductsPage({
                                     `${familySlug}__${heatingType}__${model}`
                                   )
                                 }
-                                className="text-sm text-slate-800 hover:text-orange-700"
+                                className="cursor-pointer text-sm text-slate-800 hover:text-orange-700"
                               >
                                 {model}
                               </button>
@@ -167,7 +184,7 @@ export default function ProductsPage({
                             `${familySlug}__${heatingType}__${model}`
                           )
                         }
-                        className="text-sm text-slate-800 hover:text-orange-700"
+                        className="cursor-pointer text-sm text-slate-800 hover:text-orange-700"
                       >
                         {model}
                       </button>
@@ -211,7 +228,7 @@ export default function ProductsPage({
                       onClick={() =>
                         handleOpenProduct(`${slug}__${groupName}__${model}`)
                       }
-                      className="text-sm text-slate-800 hover:text-orange-700"
+                      className="cursor-pointer text-sm text-slate-800 hover:text-orange-700"
                     >
                       {model}
                     </button>
@@ -245,7 +262,7 @@ export default function ProductsPage({
                 <button
                   key={refrigerant}
                   onClick={() => setActiveRefrigerant(refrigerant)}
-                  className={`rounded-sm border px-3 py-2 text-xs font-semibold ${
+                  className={`cursor-pointer rounded-sm border px-3 py-2 text-xs font-semibold ${
                     activeRefrigerant === refrigerant
                       ? "border-orange-600 bg-orange-50 text-orange-700"
                       : "border-slate-200 bg-white text-slate-700"
@@ -271,7 +288,7 @@ export default function ProductsPage({
                 <button
                   key={market}
                   onClick={() => setActiveMarket(market)}
-                  className={`rounded-sm border px-3 py-2 text-xs font-semibold ${
+                  className={`cursor-pointer rounded-sm border px-3 py-2 text-xs font-semibold ${
                     activeMarket === market
                       ? "border-orange-600 bg-orange-50 text-orange-700"
                       : "border-slate-200 bg-white text-slate-700"
@@ -295,7 +312,13 @@ export default function ProductsPage({
       <div className="mt-6 grid gap-6 md:grid-cols-2">
         {filteredFamilies.map(([slug, family]) => (
           <div key={slug} className="border border-slate-200 bg-white p-6">
-            <div className="h-28 bg-slate-100" />
+            <div className="h-84 overflow-hidden flex items-center justify-center">
+              <img
+                src={`${import.meta.env.BASE_URL}product-images/${titleToImageFilename(family.title, activeRefrigerant)}.png`}
+                alt={family.title}
+                className="max-h-full max-w-full object-contain"
+              />
+            </div>
 
             <div className="mt-6 text-lg font-semibold text-orange-700">
               {family.title}
@@ -341,7 +364,7 @@ export default function ProductsPage({
                           onClick={() =>
                             handleOpenProduct(`${slug}__indoor__${unit.model}`)
                           }
-                          className="text-sm text-slate-800 hover:text-orange-700"
+                          className="cursor-pointer text-sm text-slate-800 hover:text-orange-700"
                         >
                           {unit.model}
                         </button>
