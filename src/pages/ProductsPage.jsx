@@ -102,6 +102,7 @@ export default function ProductsPage({
     })
     .filter(([_, family]) =>
       hasHeatingData(family.singleZoneOutdoorUnits) ||
+      hasHeatingData(family.pairings) ||
       hasHeatingData(family.multiZoneOutdoorUnits) ||
       hasIndoorUnits(family.indoorUnits) ||
       hasOutdoorGroups(family.outdoorUnits)
@@ -334,6 +335,15 @@ export default function ProductsPage({
                   Single-Zone Pairings
                 </div>
                 {renderHeatingGroups(slug, family.singleZoneOutdoorUnits)}
+              </div>
+            )}
+            
+            {hasHeatingData(family.pairings) && (
+              <div className="mt-4">
+                <div className="text-sm font-semibold text-slate-900">
+                  Pairings
+                </div>
+                {renderHeatingGroups(slug, family.pairings)}
               </div>
             )}
 

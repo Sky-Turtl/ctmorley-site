@@ -170,11 +170,46 @@ const scoreSearchResult = (item, query) => {
 };
   
 export default function App() {
-  const [page, setPage] = useState("home");
-  const [activeMarket, setActiveMarket] = useState("Residential");
-  const [activeProductId, setActiveProductId] = useState(null);
-  const [activeRefrigerant, setActiveRefrigerant] = useState("R454B");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [page, setPage] = useState(() => {
+    try {
+      const saved = localStorage.getItem("app-state");
+      return saved ? JSON.parse(saved).page : "home";
+    } catch {
+      return "home";
+    }
+  });
+  const [activeMarket, setActiveMarket] = useState(() => {
+    try {
+      const saved = localStorage.getItem("app-state");
+      return saved ? JSON.parse(saved).activeMarket : "Residential";
+    } catch {
+      return "Residential";
+    }
+  });
+  const [activeProductId, setActiveProductId] = useState(() => {
+    try {
+      const saved = localStorage.getItem("app-state");
+      return saved ? JSON.parse(saved).activeProductId : null;
+    } catch {
+      return null;
+    }
+  });
+  const [activeRefrigerant, setActiveRefrigerant] = useState(() => {
+    try {
+      const saved = localStorage.getItem("app-state");
+      return saved ? JSON.parse(saved).activeRefrigerant : "R454B";
+    } catch {
+      return "R454B";
+    }
+  });
+  const [searchQuery, setSearchQuery] = useState(() => {
+    try {
+      const saved = localStorage.getItem("app-state");
+      return saved ? JSON.parse(saved).searchQuery : "";
+    } catch {
+      return "";
+    }
+  });
 
   const searchIndex = useMemo(() => buildSearchIndex(productFamilies), []);
 
@@ -256,17 +291,19 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    window.history.replaceState(
-      {
-        page,
-        activeProductId,
-        activeMarket,
-        activeRefrigerant,
-        searchQuery,
-      },
-      "",
-      ""
-    );
+    const state = {
+      page,
+      activeProductId,
+      activeMarket,
+      activeRefrigerant,
+      searchQuery,
+    };
+    
+    // Save to localStorage
+    localStorage.setItem("app-state", JSON.stringify(state));
+    
+    // Also update browser history
+    window.history.replaceState(state, "", "");
   }, [page, activeProductId, activeMarket, activeRefrigerant, searchQuery]);
 
   useEffect(() => {

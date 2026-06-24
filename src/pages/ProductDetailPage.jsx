@@ -156,6 +156,9 @@ export default function ProductDetailPage({
     subtitle,
     description,
     specs = [],
+    dimensions = null,
+    pipeSizes = null,
+    operatingRanges = null,
     highlightTags = [],
     unit,
     family,
@@ -369,8 +372,42 @@ export default function ProductDetailPage({
     return accessories;
   };
 
+  const getUnitImagePath = (model, unitObj) => {
+    if (!model) return null;
+    
+    // Handle paired models: remove spaces and replace "/" with "&"
+    // Ensure MOU comes before MIU in paired units
+    // e.g., "MIU-B09W-2 / MOU-B09H-2" becomes "MOU-B09H-2&MIU-B09W-2"
+    if (model.includes(" / ")) {
+      const [first, second] = model.split(" / ").map(m => m.trim());
+      // Ensure MOU is first, then MIU
+      const mou = [first, second].find(m => m.startsWith("MOU"));
+      const miu = [first, second].find(m => m.startsWith("MIU"));
+      const normalizedModel = mou && miu ? `${mou}&${miu}` : model.replace(/\s*\/\s*/g, "&");
+      return `${import.meta.env.BASE_URL}unit-images/${normalizedModel}-cover.png`;
+    }
+    
+    // For single MIU units with compatible outdoor units, create paired image path
+    if (model.startsWith("MIU") && unitObj?.compatibleMultiZoneOutdoorUnits) {
+      const standardOutdoor = unitObj.compatibleMultiZoneOutdoorUnits.standard?.[0];
+      if (standardOutdoor) {
+        return `${import.meta.env.BASE_URL}unit-images/${standardOutdoor}&${model}-cover.png`;
+      }
+    }
+    
+    // For MOU units, try to find corresponding MIU by replacing MOU with MIU
+    // For extreme models (VH), remove the H to get the base MIU model
+    // e.g., MOU-B48VH-4 → MIU-B48V-4, MOU-B48V-4 → MIU-B48V-4
+    if (model.startsWith("MOU")) {
+      const correspondingMIU = model.replace(/^MOU/, "MIU").replace(/VH/, "V");
+      return `${import.meta.env.BASE_URL}unit-images/${model}&${correspondingMIU}-cover.png`;
+    }
+    
+    return `${import.meta.env.BASE_URL}unit-images/${model}-cover.png`;
+  };
+
   return (
-    <section className="mx-auto max-w-5xl px-6 py-10">
+    <section className="mx-auto max-w-6xl px-6 py-10">
       <button
         onClick={handleBack}
         className="mb-6 cursor-pointer text-sm font-semibold text-orange-700 hover:text-orange-800"
@@ -381,7 +418,17 @@ export default function ProductDetailPage({
       <div className="grid items-start gap-8 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="space-y-6">
           <div className="border border-slate-200 bg-white p-6">
-            <div className="h-64 bg-slate-100" />
+            <div className="flex items-center justify-center h-64 border border-slate-200 rounded">
+              {getUnitImagePath(unit?.model || detail?.model, unit) ? (
+                <img
+                  src={getUnitImagePath(unit?.model || detail?.model, unit)}
+                  alt={unit?.model || detail?.model}
+                  className="max-h-full max-w-full object-contain p-4"
+                />
+              ) : (
+                <div className="text-slate-400">No unit image available</div>
+              )}
+            </div>
 
             <div className="mt-6 text-sm font-semibold uppercase tracking-[0.08em] text-slate-500">
               {subtitle}
@@ -517,6 +564,90 @@ export default function ProductDetailPage({
                 </div>
               ))}
             </div>
+
+            {dimensions && (
+              <>
+                <h2 className="mt-6 text-lg font-semibold text-slate-900">
+                  Dimensions
+                </h2>
+
+                <div className="mt-4 divide-y divide-slate-200">
+                  {Object.entries(dimensions).map(([section, values]) => (
+                    <div
+                      key={section}
+                      className="grid grid-cols-2 gap-4 py-3"
+                    >
+                      <div className="text-sm font-medium text-slate-500">
+                        {section} (W x D x H)
+                      </div>
+
+                      <div className="text-sm text-slate-900">
+                        {values.in.width}" × {values.in.depth}" × {values.in.height}"
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {pipeSizes && Object.keys(pipeSizes).length > 0 && (
+              <>
+                <h2 className="mt-6 text-lg font-semibold text-slate-900">
+                  Pipe Sizes
+                </h2>
+
+                <div className="mt-4 divide-y divide-slate-200">
+                  {Object.entries(pipeSizes).map(([label, value]) => (
+                    <div
+                      key={label}
+                      className="grid grid-cols-2 gap-4 py-3"
+                    >
+                      <div className="text-sm font-medium text-slate-500">
+                        {label}
+                      </div>
+
+                      <div className="text-sm text-slate-900">
+                        {value}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {operatingRanges && (
+              <>
+                <h2 className="mt-6 text-lg font-semibold text-slate-900">
+                  Operating Ranges
+                </h2>
+
+                <div className="mt-4 divide-y divide-slate-200">
+                  {operatingRanges.Cooling && (
+                    <div className="grid grid-cols-2 gap-4 py-3">
+                      <div className="text-sm font-medium text-slate-500">
+                        Cooling
+                      </div>
+                      <div className="text-sm text-slate-900">
+                        {operatingRanges.Cooling.f[0]}°F to {operatingRanges.Cooling.f[1]}°F
+                        ({operatingRanges.Cooling.c[0]}°C to {operatingRanges.Cooling.c[1]}°C)
+                      </div>
+                    </div>
+                  )}
+
+                  {operatingRanges.Heating && (
+                    <div className="grid grid-cols-2 gap-4 py-3">
+                      <div className="text-sm font-medium text-slate-500">
+                        Heating
+                      </div>
+                      <div className="text-sm text-slate-900">
+                        {operatingRanges.Heating.f[0]}°F to {operatingRanges.Heating.f[1]}°F 
+                        ({operatingRanges.Heating.c[0]}°C to {operatingRanges.Heating.c[1]}°C)
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -30,6 +30,14 @@ export function getProductDetail(productFamilies, activeProductId) {
     return labels[group] || group;
   };
 
+  const getModelData = (field) => {
+    return (
+      family?.[field]?.[selectionType]?.[model] ??
+      family?.[field]?.[model] ??
+      null
+    );
+  };
+
   if (selectionType === "indoor") {
     const unit =
       family.indoorUnits?.find((item) => item.model === model) || null;
@@ -43,6 +51,9 @@ export function getProductDetail(productFamilies, activeProductId) {
         subtitle: `${family.title} · Indoor Unit`,
         description: family.description,
         specs: [...baseSpecs, { label: "Model", value: model }],
+        dimensions: getModelData("dimensions"),
+        pipeSizes: getModelData("pipeSizes"),
+        operatingRanges: getModelData("operatingRanges"),
         highlightTags: baseTags,
         unit: null,
         family,
@@ -67,7 +78,9 @@ export function getProductDetail(productFamilies, activeProductId) {
     ];
 
     const highlightTags = [...baseTags];
+
     if (unit.size) highlightTags.push(unit.size);
+
     if (Array.isArray(unit.heating)) {
       unit.heating.forEach((item) => highlightTags.push(item));
     }
@@ -80,6 +93,18 @@ export function getProductDetail(productFamilies, activeProductId) {
       subtitle: `${family.title} · Indoor Unit`,
       description: family.description,
       specs,
+      dimensions:
+        unit.dimensions ??
+        getModelData("dimensions") ??
+        [],
+      pipeSizes:
+        unit.pipeSizes ??
+        getModelData("pipeSizes") ??
+        [],
+      operatingRanges:
+        unit.operatingRanges ??
+        getModelData("operatingRanges") ??
+        [],
       highlightTags: [...new Set(highlightTags)],
       unit,
       family,
@@ -98,6 +123,9 @@ export function getProductDetail(productFamilies, activeProductId) {
       { label: "Model", value: model },
       { label: "Configuration", value: formatGroupLabel(selectionType) },
     ],
+    dimensions: getModelData("dimensions") ?? [],
+    pipeSizes: getModelData("pipeSizes") ?? [],
+    operatingRanges: getModelData("operatingRanges") ?? [],
     highlightTags: [
       ...new Set([
         ...baseTags,
