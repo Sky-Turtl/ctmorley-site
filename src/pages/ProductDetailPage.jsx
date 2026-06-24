@@ -159,6 +159,8 @@ export default function ProductDetailPage({
     dimensions = null,
     pipeSizes = null,
     operatingRanges = null,
+    ports = null,
+    mca = null,
     highlightTags = [],
     unit,
     family,
@@ -398,11 +400,10 @@ export default function ProductDetailPage({
     // For MOU units, try to find corresponding MIU by replacing MOU with MIU
     // For extreme models (VH), remove the H to get the base MIU model
     // e.g., MOU-B48VH-4 → MIU-B48V-4, MOU-B48V-4 → MIU-B48V-4
-    if (model.startsWith("MOU")) {
-      const correspondingMIU = model.replace(/^MOU/, "MIU").replace(/VH/, "V");
-      return `${import.meta.env.BASE_URL}unit-images/${model}&${correspondingMIU}-cover.png`;
-    }
-    
+    // if (model.startsWith("MOU")) {
+    //   return `${import.meta.env.BASE_URL}unit-images/${model}-cover.png`;
+    // }
+
     return `${import.meta.env.BASE_URL}unit-images/${model}-cover.png`;
   };
 
@@ -565,7 +566,7 @@ export default function ProductDetailPage({
               ))}
             </div>
 
-            {dimensions && (
+            {dimensions && Object.keys(dimensions).length > 0 && (
               <>
                 <h2 className="mt-6 text-lg font-semibold text-slate-900">
                   Dimensions
@@ -582,7 +583,7 @@ export default function ProductDetailPage({
                       </div>
 
                       <div className="text-sm text-slate-900">
-                        {values.in.width}" × {values.in.depth}" × {values.in.height}"
+                        {values.width}" × {values.depth}" × {values.height}"
                       </div>
                     </div>
                   ))}
@@ -615,7 +616,7 @@ export default function ProductDetailPage({
               </>
             )}
 
-            {operatingRanges && (
+            {operatingRanges && Object.keys(operatingRanges).length > 0 && (
               <>
                 <h2 className="mt-6 text-lg font-semibold text-slate-900">
                   Operating Ranges
@@ -645,6 +646,45 @@ export default function ProductDetailPage({
                       </div>
                     </div>
                   )}
+                </div>
+              </>
+            )}
+            {ports && Object.keys(ports).length > 0 && (
+              <>
+                <h2 className="mt-6 text-lg font-semibold text-slate-900">
+                  Ports
+                </h2>
+
+                <div className="mt-4 divide-y divide-slate-200">
+                  <div className="grid grid-cols-2 gap-4 py-3">
+                    <div className="text-sm font-medium text-slate-500">
+                      Maximum Indoor Units
+                    </div>
+
+                    <div className="text-sm text-slate-900">
+                      {ports}
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {mca && Object.keys(mca).length > 0 && (
+              <>
+                <h2 className="mt-6 text-lg font-semibold text-slate-900">
+                  Electrical
+                </h2>
+
+                <div className="mt-4 divide-y divide-slate-200">
+                  <div className="grid grid-cols-2 gap-4 py-3">
+                    <div className="text-sm font-medium text-slate-500">
+                      MCA
+                    </div>
+
+                    <div className="text-sm text-slate-900">
+                      {mca} A
+                    </div>
+                  </div>
                 </div>
               </>
             )}

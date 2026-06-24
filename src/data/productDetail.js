@@ -105,6 +105,14 @@ export function getProductDetail(productFamilies, activeProductId) {
         unit.operatingRanges ??
         getModelData("operatingRanges") ??
         [],
+      ports:
+        unit.ports ??
+        getModelData("ports") ??
+        null,
+      mca:
+        unit.mca ??
+        getModelData("mca") ??
+        null,
       highlightTags: [...new Set(highlightTags)],
       unit,
       family,
@@ -126,6 +134,8 @@ export function getProductDetail(productFamilies, activeProductId) {
     dimensions: getModelData("dimensions") ?? [],
     pipeSizes: getModelData("pipeSizes") ?? [],
     operatingRanges: getModelData("operatingRanges") ?? [],
+    ports: getModelData("ports"),
+    mca: getModelData("mca"),
     highlightTags: [
       ...new Set([
         ...baseTags,
