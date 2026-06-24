@@ -156,121 +156,69 @@ const baseProductFamilies454B = {
     ],
     dimensions: {
       standard: {
-        "MIU-B09GW-1 / MOU-B09G-1": {
-          Indoor: {
-            in: { width: "28 3/4", depth: "7 7/8", height: "11 1/2" },				
-          },
-          Outdoor: {
-            in: { width: "30 1/8", depth: "11 15/16", height: "21 7/8" },		
-          }
+        "MIU-B09W-1 / MOU-B09G-1": {
+          Indoor: { width: "28 3/4", depth: "7 7/8", height: "11 1/2" },
+          Outdoor: { width: "30 1/8", depth: "11 15/16", height: "21 7/8" },
         },
-        "MIU-B12GW-1 / MOU-B12G-1": {
-          Indoor: { 
-            in: { width: "31 5/8", depth: "7 7/8", height: "11 5/8" },		
-          },
-          Outdoor: {
-            in: { width: "30 1/8", depth: "11 15/16", height: "21 7/8" },			
-          }
+        "MIU-B12W-1 / MOU-B12G-1": {
+          Indoor: {  width: "31 5/8", depth: "7 7/8", height: "11 5/8" },
+          Outdoor: { width: "30 1/8", depth: "11 15/16", height: "21 7/8" },
         },
         "MIU-B09GW-2 / MOU-B09G-2": {
-          Indoor: {
-            in: { width: "28 3/4", depth: "7 7/8", height: "11 1/2" },		
-          },
-          Outdoor: {
-            in: { width: "30 1/8", depth: "11 15/16", height: "21 7/8" },		
-          }
+          Indoor: { width: "28 3/4", depth: "7 7/8", height: "11 1/2" },
+          Outdoor: { width: "30 1/8", depth: "11 15/16", height: "21 7/8" },
         },
         "MIU-B12GW-2 / MOU-B12G-2": {
-          Indoor: {
-            in: { width: "31 5/8", depth: "7 7/8", height: "11 5/8" },		
-          },
-          Outdoor: {
-            in: { width: "30 1/8", depth: "11 15/16", height: "21 7/8" },		
-          }
+          Indoor: { width: "31 5/8", depth: "7 7/8", height: "11 5/8" },
+          Outdoor: { width: "30 1/8", depth: "11 15/16", height: "21 7/8" },
         },  
         "MIU-B18GW-2 / MOU-B18G-2": {
-          Indoor: {
-            in: { width: "38 1/4", depth: "9", height: "12 11/16" },		
-          },
-          Outdoor: {
-            in: { width: "31 3/4", depth: "13", height: "21 13/16" },		
-          }
+          Indoor: { width: "38 1/4", depth: "9", height: "12 11/16" },
+          Outdoor: { width: "31 3/4", depth: "13", height: "21 13/16" },
         },
         "MIU-B24GW-2 / MOU-B24G-2": {
-          Indoor: { 
-            in: { width: "42 5/8", depth: "9 1/4", height: "13 5/16" },
-         },
-          Outdoor: { 
-            in: { width: "35 1/16", depth: "13 1/2", height: "26 1/2" },
-          },
+          Indoor: {  width: "42 5/8", depth: "9 1/4", height: "13 5/16" },
+          Outdoor: {  width: "35 1/16", depth: "13 1/2", height: "26 1/2" },
         },
-        "MIU-B30W-2 / MOU-30G-2": {
-          Indoor: {
-            in: { width: "49 5/8", depth: "11 3/16", height: "14 5/16" },		
-          },
-          Outdoor: {
-            in: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },		
-          }
+        "MIU-B30W-2 / MOU-B30G-2": {
+          Indoor: { width: "49 5/8", depth: "11 3/16", height: "14 5/16" },
+          Outdoor: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },
         },
         "MIU-B36W-2 / MOU-B36G-2": {
-          Indoor: {
-            in: { width: "49 5/8", depth: "11 3/16", height: "14 5/16" },		
-          },
-          Outdoor: {
-            in: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },		
-          }
+          Indoor: { width: "49 5/8", depth: "11 3/16", height: "14 5/16" },
+          Outdoor: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },
         },
       },
       extreme: {
         "MIU-B09W-2 / MOU-B09H-2": {
-          Indoor: {
-            in: { width: "31 5/8", depth: "7 7/8", height: "11 5/8" },		
-          },
-          Outdoor: { 
-            in: { width: "31 3/4", depth: "13", height: "21 13/16" },		
-          }
+          Indoor: { width: "31 5/8", depth: "7 7/8", height: "11 5/8" },
+          Outdoor: {  width: "31 3/4", depth: "13", height: "21 13/16" },
         },
         "MIU-B12W-2 / MOU-B12H-2": {
-          Indoor: {
-            in: { width: "31 5/8", depth: "7 7/8", height: "11 5/8" },			
-          },
-          Outdoor: { 
-            in: { width: "31 3/4", depth: "13", height: "21 13/16" },			
-          }
+          Indoor: { width: "31 5/8", depth: "7 7/8", height: "11 5/8" },
+          Outdoor: {  width: "31 3/4", depth: "13", height: "21 13/16" },
         },
         "MIU-B18W-2 / MOU-B18H-2": {
-          Indoor: {
-            in: { width: "42 5/8", depth: "9 1/4", height: "13 5/16" },			
-          },
-          Outdoor: { 
-            in: { width: "35 1/16", depth: "13 1/2", height: "26 1/2" },		
-          }
+          Indoor: { width: "42 5/8", depth: "9 1/4", height: "13 5/16" },
+          Outdoor: {  width: "35 1/16", depth: "13 1/2", height: "26 1/2" },
         },
         "MIU-B24W-2 / MOU-B24H-2": {
-          Indoor: {
-            in: { width: "42 5/8", depth: "9 1/4", height: "13 5/16" },		
-         },
-          Outdoor: { 
-            in: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },		
-          },
+          Indoor: { width: "42 5/8", depth: "9 1/4", height: "13 5/16" },
+          Outdoor: {  width: "37 1/4", depth: "16 3/16", height: "31 15/16" },
         },
         "MIU-B33HW-2 / MOU-B33H-2": {
-          Indoor: {
-            in: { width: "49 5/8", depth: "11 3/16", height: "14 5/16" },			
-          },
-          Outdoor: {
-            in: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },		
-          }
+          Indoor: { width: "49 5/8", depth: "11 3/16", height: "14 5/16" },
+          Outdoor: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },
         }
       }
     },
     pipeSizes: {
       standard: {
-        "MIU-B09GW-1 / MOU-B09G-1": {
+        "MIU-B09W-1 / MOU-B09G-1": {
           Liquid: "1/4\"",
           Gas: "3/8\"",
         },
-        "MIU-B12GW-1 / MOU-B12G-1": {
+        "MIU-B12W-1 / MOU-B12G-1": {
           Liquid: "1/4\"",
           Gas: "3/8\"",
         },
@@ -325,6 +273,54 @@ const baseProductFamilies454B = {
     operatingRanges: {
       standard: {
         "MIU-B09W-1 / MOU-B09G-1": {
+          Cooling: {
+            f: [5,122],
+            c: [-15,50],
+          },
+          Heating: {
+            f: [5,75],
+            c: [-15,24]
+          }
+        },
+        "MIU-B12W-1 / MOU-B12G-1": {
+          Cooling: {
+            f: [5,122],
+            c: [-15,50],
+          },
+          Heating: {
+            f: [5,75],
+            c: [-15,24]
+          }
+        },
+        "MIU-B09GW-2 / MOU-B09G-2": {
+          Cooling: {
+            f: [5,122],
+            c: [-15,50],
+          },
+          Heating: {
+            f: [5,75],
+            c: [-15,24]
+          }
+        },
+        "MIU-B12GW-2 / MOU-B12G-2": {
+          Cooling: {
+            f: [5,122],
+            c: [-15,50],
+          },
+          Heating: {
+            f: [5,75],
+            c: [-15,24]
+          }
+        },
+        "MIU-B18GW-2 / MOU-B18G-2": {
+          Cooling: {
+            f: [5,122],
+            c: [-15,50],
+          },
+          Heating: {
+            f: [5,75],
+            c: [-15,24]
+          }
         },
         "MIU-B24GW-2 / MOU-B24G-2": { 
           Cooling: {
@@ -335,8 +331,80 @@ const baseProductFamilies454B = {
             f: [5,75],
             c: [-15,24]
           }
+        },
+        "MIU-B30W-2 / MOU-B30G-2": {
+          Cooling: {
+            f: [-13,122],
+            c: [-25,50],
+          },
+          Heating: {
+            f: [-13,75],
+            c: [-25,24]
+          }
+        },
+        "MIU-B36W-2 / MOU-B36G-2": {
+          Cooling: {
+            f: [-13,122],
+            c: [-25,50],
+          },
+          Heating: {
+            f: [-13,75],
+            c: [-25,24]
+          }
+        },
+      },
+      extreme: {
+        "MIU-B09W-2 / MOU-B09H-2": {
+          Cooling: {
+            f: [-22, 122],
+            c: [-30, 50],
+          },
+          Heating: {
+            f: [-22, 75],
+            c: [-30, 24]
+          }
+        },
+        "MIU-B12W-2 / MOU-B12H-2": {
+          Cooling: {
+            f: [-22, 122],
+            c: [-30, 50],
+          },
+          Heating: {
+            f: [-22, 75],
+            c: [-30, 24]
+          }
+        },
+        "MIU-B18W-2 / MOU-B18H-2": {
+          Cooling: {
+            f: [-22, 122],
+            c: [-30, 50],
+          },
+          Heating: {
+            f: [-22, 75],
+            c: [-30, 24]
+          }
+        },
+        "MIU-B24W-2 / MOU-B24H-2": {
+          Cooling: {
+            f: [-22, 122],
+            c: [-30, 50],
+          },
+          Heating: {
+            f: [-22, 75],
+            c: [-30, 24]
+          }
+        },
+        "MIU-B33HW-2 / MOU-B33H-2": {
+          Cooling: {
+            f: [-22, 122],
+            c: [-30, 50],
+          },
+          Heating: {
+            f: [-22, 75],
+            c: [-30, 24]
+          }
         }
-      }
+      },
     },
     highlightTags: ["Wall Mounted", "Single-Zone", "Direct Pairing"],
     singleZoneOutdoorUnits: {
@@ -379,6 +447,226 @@ const baseProductFamilies454B = {
       { label: "Refrigerant", value: "R454B" },
       { label: "Operation", value: "Heating + Cooling" },
     ],
+    dimensions: {
+      standard: {
+        "MOU-3B18G-2": {
+          Outdoor: { width: "35 1/16", depth: "13 1/2", height: "26 1/2" },
+        },
+        "MOU-4B27G-2": {
+          Outdoor: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },
+        },
+        "MOU-5B36G-2": {
+          Outdoor: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },
+        },
+        "MOU-6B48G-2": {
+          Outdoor: { width: "37 1/2", depth: "16 3/8", height: "52 1/2" },
+        },
+        "MOU-6B60G-2": {
+          Outdoor: { width: "37 1/2", depth: "16 3/8", height: "52 1/2" },
+        },
+      },
+      extreme: {
+        "MOU-3B18H-2": {
+          Outdoor: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },
+        },
+        "MOU-4B27H-2": {
+          Outdoor: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },
+        },
+        "MOU-5B36H-2": {
+          Outdoor: { width: "38 5/8", depth: "16 3/8", height: "38 7/16" },
+        },
+        "MOU-6B48H-2": {
+          Outdoor: { width: "37 1/2", depth: "16 3/8", height: "52 1/2" },
+        },
+        "MOU-6B55H-2": {
+          Outdoor: { width: "37 1/2", depth: "16 3/8", height: "52 1/2" },
+        },
+      },
+    },
+    pipeSizes: {
+      standard: {
+        "MOU-3B18G-2": {
+          Liquid: "3 x 1/4\"",
+          Gas: "3 x 3/8\"",
+        },
+        "MOU-4B27G-2": {
+          Liquid: "4 x 1/4\"",
+          Gas: "3 x 3/8 + 1 x 1/2\"",
+        },
+        "MOU-5B36G-2": {
+          Liquid: "5 x 1/4\"",
+          Gas: "4 x 3/8 + 1 x 1/2\"",
+        },
+        "MOU-6B48G-2": {
+          Liquid: "6 x 1/4\"",
+          Gas: "4 x 3/8 + 2 x 1/2\"",
+        },
+        "MOU-6B60G-2": {
+          Liquid: "6 x 1/4\"",
+          Gas: "4 x 3/8 + 2 x 1/2\"",
+        },
+      },
+      extreme: {
+        "MOU-3B18H-2": {
+          Liquid: "3 x 1/4\"",
+          Gas: "3 x 3/8\"",
+        },
+        "MOU-4B27H-2": {
+          Liquid: "4 x 1/4\"",
+          Gas: "3 x 3/8 + 1 x 1/2\"",
+        },
+        "MOU-5B36H-2": {
+          Liquid: "5 x 1/4\"",
+          Gas: "3 x 3/8 + 2 x 1/2\"",
+        },
+        "MOU-6B48H-2": {
+          Liquid: "6 x 1/4\"",
+          Gas: "4 x 3/8 + 2 x 1/2\"",
+        },
+        "MOU-6B55H-2": {
+          Liquid: "6 x 1/4\"",
+          Gas: "4 x 3/8 + 2 x 1/2\"",
+        },
+      },
+    },
+    operatingRanges: {
+      standard: {
+        "MOU-3B18G-2": {
+          Cooling: {
+            f: [-13, 122],
+            c: [-25, 50],
+          },
+          Heating: {
+            f: [-13, 75],
+            c: [-25, 24],
+          }
+        },
+        "MOU-4B27G-2": {
+          Cooling: {
+            f: [-13, 122],
+            c: [-25, 50],
+          },
+          Heating: {
+            f: [-13, 75],
+            c: [-25, 24],
+          }
+        },
+        "MOU-5B36G-2": {
+          Cooling: {
+            f: [-13, 122],
+            c: [-25, 50],
+          },
+          Heating: {
+            f: [-13, 75],
+            c: [-25, 24],
+          }
+        },
+        "MOU-6B48G-2": {
+          Cooling: {
+            f: [-13, 122],
+            c: [-25, 50],
+          },
+          Heating: {
+            f: [-13, 75],
+            c: [-25, 24],
+          }
+        },
+        "MOU-6B60G-2": {
+          Cooling: {
+            f: [-13, 122],
+            c: [-25, 50],
+          },
+          Heating: {
+            f: [-13, 75],
+            c: [-25, 24],
+          }
+        },
+      },
+      extreme: {
+        "MOU-3B18H-2": {
+          Cooling: {
+            f: [-22, 122],
+            c: [-30, 50],
+          },
+          Heating: {
+            f: [-22, 75],
+            c: [-30, 24],
+          }
+        },
+        "MOU-4B27H-2": {
+          Cooling: {
+            f: [-22, 122],
+            c: [-30, 50],
+          },
+          Heating: {
+            f: [-22, 75],
+            c: [-30, 24],
+          }
+        },
+        "MOU-5B36H-2": {
+          Cooling: {
+            f: [-22, 122],
+            c: [-30, 50],
+          },
+          Heating: {
+            f: [-22, 75],
+            c: [-30, 24],
+          }
+        },
+        "MOU-6B48H-2": {
+          Cooling: {
+            f: [-22, 122],
+            c: [-30, 50],
+          },
+          Heating: {
+            f: [-22, 75],
+            c: [-30, 24],
+          }
+        },
+        "MOU-6B55H-2": {
+          Cooling: {
+            f: [-22, 122],
+            c: [-30, 50],
+          },
+          Heating: {
+            f: [-22, 75],
+            c: [-30, 24],
+          }
+        },
+      }
+    },
+    ports: {
+      standard: {
+        "MOU-3B18G-2": 3,
+        "MOU-4B27G-2": 4,
+        "MOU-5B36G-2": 5,
+        "MOU-6B48G-2": 6,
+        "MOU-6B60G-2": 6,
+      },
+      extreme: {
+        "MOU-3B18H-2": 3,
+        "MOU-4B27H-2": 4,
+        "MOU-5B36H-2": 5,
+        "MOU-6B48H-2": 6,
+        "MOU-6B55H-2": 6,
+      },
+    },
+    mca:{
+      standard: {
+        "MOU-3B18G-2": 16,
+        "MOU-4B27G-2": 23,
+        "MOU-5B36G-2": 30.5,
+        "MOU-6B48G-2": 40,
+        "MOU-6B60G-2": 40,
+      },
+      extreme: {
+        "MOU-3B18H-2": 17.5,
+        "MOU-4B27H-2": 30,
+        "MOU-5B36H-2": 37,
+        "MOU-6B48H-2": 43,
+        "MOU-6B55H-2": 43,
+      },
+    },
     highlightTags: ["Multi-Zone Outdoor", "Residential", "Heating + Cooling"],
     outdoorUnits: residentialMultiZoneOutdoorUnits454B,
   },
@@ -397,6 +685,45 @@ const baseProductFamilies454B = {
       { label: "Refrigerant", value: "R454B" },
       { label: "Operation", value: "Heating + Cooling" },
     ],
+    dimensions: {
+      "MIU-B06W-2" : {
+        Indoor: { width: "28 3/4", depth: "7 7/8", height: "11 1/2" },
+      },
+      "MIU-B09W-2": {
+        Indoor: { width: "31 5/8", depth: "7 7/8", height: "11 5/8" },
+      },
+      "MIU-B12W-2": {
+        Indoor: { width: "31 5/8", depth: "7 7/8", height: "11 5/8" },
+      },
+      "MIU-B18W-2": {
+        Indoor: { width: "42 5/8", depth: "9 1/4", height: "13 5/16" },
+      },
+      "MIU-B24W-2": {
+        Indoor: { width: "42 5/8", depth: "9 1/4", height: "13 5/16" },
+      },
+    },
+    pipeSizes: {
+      "MIU-B06W-2": {
+        Liquid: "1/4\"",
+        Gas: "3/8\"",
+      },
+      "MIU-B09W-2": {
+        Liquid: "1/4\"",
+        Gas: "3/8\"",
+      },
+      "MIU-B12W-2": {
+        Liquid: "1/4\"",
+        Gas: "3/8\"",
+      },
+      "MIU-B18W-2": {
+        Liquid: "1/4\"",
+        Gas: "1/2\"",
+      },
+      "MIU-B24W-2": {
+        Liquid: "3/8\"",
+        Gas: "5/8\"",
+      },
+    },
     highlightTags: ["Wall Mounted", "Shared Indoor Platform", "Residential"],
     indoorUnits: [
       {
@@ -460,6 +787,38 @@ const baseProductFamilies454B = {
       { label: "Refrigerant", value: "R454B" },
       { label: "Operation", value: "Heating + Cooling" },
     ],
+    dimensions: {
+      "MIU-B09D-2": {
+        Indoor: {width: "27 9/16", depth: "29 9/16", height: "9 11/16" },
+      },
+      "MIU-B12D-2": {
+        Indoor: {width: "27 9/16", depth: "29 9/16", height: "9 11/16" },
+      },
+      "MIU-B18D-2": { 
+        Indoor: {width : "39 3/8", depth: "29 9/16", height: "9 11/16" },
+      },
+      "MIU-B24D-2": {
+        Indoor: {width: "39 3/8", depth: "29 9/16", height: "9 11/16" },
+      }
+    },
+    pipeSizes: {
+      "MIU-B09D-2": {
+        Liquid: "1/4\"",
+        Gas: "3/8\"",
+      },
+      "MIU-B12D-2": {
+        Liquid: "1/4\"",
+        Gas: "3/8\"",
+      },
+      "MIU-B18D-2": {
+        Liquid: "1/4\"",
+        Gas: "1/2\"",
+      },
+      "MIU-B24D-2": {
+        Liquid: "3/8\"",
+        Gas: "5/8\"",
+      },
+    },
     highlightTags: ["Ducted", "Shared Indoor Platform", "Residential"],
     indoorUnits: [
       {
@@ -516,6 +875,31 @@ const baseProductFamilies454B = {
       { label: "Refrigerant", value: "R454B" },
       { label: "Operation", value: "Heating + Cooling" },
     ],
+    dimensions: {
+      "MIU-B09CO-2": {
+        Indoor: { width: "50 3/8", depth: "13 1/4", height: "9" },
+      },
+      "MIU-B12CO-2": {
+        Indoor: { width: "50 3/8", depth: "13 1/4", height: "9" },
+      },
+      "MIU-B18CO-2": {
+        Indoor: { width: "50 3/8", depth: "13 1/4", height: "9" },
+      },
+    },
+    pipeSizes: {
+      "MIU-B09CO-2": {
+        Liquid: "1/4\"",
+        Gas: "3/8\"", 
+      },
+      "MIU-B12CO-2": {
+        Liquid: "1/4\"",
+        Gas: "3/8\"",
+      },
+      "MIU-B18CO-2": {
+        Liquid: "1/4\"",
+        Gas: "1/2\"",
+      },
+    },
     highlightTags: ["1-Way Cassette", "Shared Indoor Platform", "Residential"],
     indoorUnits: [
       {
@@ -563,6 +947,38 @@ const baseProductFamilies454B = {
       { label: "Refrigerant", value: "R454B" },
       { label: "Operation", value: "Heating + Cooling" },
     ],
+    dimensions: {
+      "MIU-B09C-2": {
+        Indoor: {width: "22 1/2", depth: "22 1/2", height: "9 11/16" },
+      },
+      "MIU-B12C-2": {
+        Indoor: {width: "22 1/2", depth: "22 1/2", height: "9 11/16" },
+      },
+      "MIU-B18C-2": {
+        Indoor: {width: "22 1/2", depth: "22 1/2", height: "9 11/16" },
+      },
+      "MIU-B24C-2": {
+        Indoor: {width: "32 11/16", depth: "32 11/16", height: "8 1/8" },
+      },
+    },
+    pipeSizes: {
+      "MIU-B09C-2": {
+        Liquid: "1/4\"",
+        Gas: "3/8\"",
+      },
+      "MIU-B12C-2": {
+        Liquid: "1/4\"",
+        Gas: "3/8\"",
+      },
+      "MIU-B18C-2": {
+        Liquid: "1/4\"",
+        Gas: "1/2\"",
+      },
+      "MIU-B24C-2": {
+        Liquid: "3/8\"",
+        Gas: "5/8\"",
+      },
+    },
     highlightTags: ["4-Way Cassette", "Shared Indoor Platform", "Residential"],
     indoorUnits: [
       {
@@ -619,6 +1035,38 @@ const baseProductFamilies454B = {
       { label: "Refrigerant", value: "R454B" },
       { label: "Operation", value: "Heating + Cooling" },
     ],
+    dimensions: { 
+      "MIU-B12F-2": {
+        Indoor: { width: "31 5/16", depth: "7 7/8", height: "24 1/2" },
+      },
+      "MIU-B16F-2": {
+        Indoor: { width: "31 5/16", depth: "7 7/8", height: "24 1/2" },
+      },
+      "MIU-B18F-2": {
+        Indoor: { width: "42 1/16", depth: "26 5/8", height: "9 5/16" },
+      },
+      "MIU-B24F-2": {
+        Indoor: { width: "42 1/16", depth: "26 5/8", height: "9 5/16" },
+      }
+    },
+    pipeSizes: {
+      "MIU-B12F-2": {
+        Liquid: "1/4\"",
+        Gas: "3/8\"",
+      },
+      "MIU-B16F-2": {
+        Liquid: "1/4\"",
+        Gas: "1/2\"",
+      },
+      "MIU-B18F-2": {
+        Liquid: "1/4\"",
+        Gas: "1/2\"",
+      },
+      "MIU-B24F-2": {
+        Liquid: "3/8\"",
+        Gas: "5/8\"",
+      },
+    },
     highlightTags: ["Floor Mounted", "Shared Indoor Platform", "Residential"],
     indoorUnits: [
       {
@@ -675,6 +1123,38 @@ const baseProductFamilies454B = {
       { label: "Refrigerant", value: "R454B" },
       { label: "Operation", value: "Heating + Cooling" },
     ],
+    dimensions: {
+      "MIU-B18V-2": {
+        Indoor: { width: "21 1/16", depth: "17 9/16", height: "45" },	
+      },
+      "MIU-B24V-2": {
+        Indoor: { width: "21 1/16", depth: "17 9/16", height: "45" },
+      },
+      "MIU-B30V-2": {
+        Indoor: { width: "21 1/16", depth: "17 9/16", height: "45" },
+      },
+      "MIU-B36V-2": {
+        Indoor: { width: "21 1/16", depth: "17 9/16", height: "45" },		
+      }
+    },
+    pipeSizes :{
+      "MIU-B18V-2": {
+        Liquid: "1/4\"",
+        Gas: "1/2\""
+      },
+      "MIU-B24V-2": {
+        Liquid: "3/8\"",
+        Gas: "5/8 \""
+      },
+      "MIU-B30V-2": {
+        Liquid: "3/8\"",
+        Gas: "5/8\""
+      },
+      "MIU-B36V-2": {
+        Liquid: "3/8\"",
+        Gas: "5/8\""
+      }
+    },    
     highlightTags: ["AHU", "Shared Indoor Platform", "Residential"],
     indoorUnits: [
       {
@@ -753,6 +1233,36 @@ const baseProductFamilies454B = {
       { label: "Refrigerant", value: "R454B" },
       { label: "Operation", value: "Heating + Cooling" },
     ],
+    dimensions: {
+      standard: {
+        "MIU-B24V-4 / MOU-B24V-4": {
+          Indoor: { width: "17 9/16", depth: "21 1/16", height: "45" },		
+          Outdoor: { width: "35 1/16", depth: "13 1/2", height: "26 1/2" },		
+        },
+        "MIU-B30V-4 / MOU-B30V-4": {
+          Indoor: { width: "21 1/16", depth: "21 1/16", height: "49 1/16" },		
+          Outdoor: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },		
+        },
+        "MIU-B36V-4 / MOU-B36V-4": {
+          Indoor: { width: "21 1/16", depth: "21 1/16", height: "49 1/16" },		
+          Outdoor: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },		
+        },
+        "MIU-B48V-4 / MOU-B48V-4": {
+          Indoor: { width: "24 1/2", depth: "21 1/16", height: "53" },		
+          Outdoor: { width: "38 5/8", depth: "16 3/8", height: "38 7/16" },		
+        },
+        "MIU-B60V-4 / MOU-B60V-4": {
+          Indoor: { width: "24 1/2", depth: "21 1/16", height: "53" },		
+          Outdoor: { width: "38 5/8", depth: "16 3/8", height: "38 7/16" },		
+        }
+      },
+      extreme:{
+        
+      }
+    },
+    pipeSizes: {
+
+    }
     highlightTags: ["Outdoor Unit", "Condenser", "Light Commercial"],
     outdoorUnits: {
       condenserStandard: [
