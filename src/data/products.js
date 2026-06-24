@@ -154,6 +154,189 @@ const baseProductFamilies454B = {
       { label: "Refrigerant", value: "R454B" },
       { label: "Operation", value: "Heating + Cooling" },
     ],
+    dimensions: {
+      standard: {
+        "MIU-B09GW-1 / MOU-B09G-1": {
+          Indoor: {
+            in: { width: "28 3/4", depth: "7 7/8", height: "11 1/2" },				
+          },
+          Outdoor: {
+            in: { width: "30 1/8", depth: "11 15/16", height: "21 7/8" },		
+          }
+        },
+        "MIU-B12GW-1 / MOU-B12G-1": {
+          Indoor: { 
+            in: { width: "31 5/8", depth: "7 7/8", height: "11 5/8" },		
+          },
+          Outdoor: {
+            in: { width: "30 1/8", depth: "11 15/16", height: "21 7/8" },			
+          }
+        },
+        "MIU-B09GW-2 / MOU-B09G-2": {
+          Indoor: {
+            in: { width: "28 3/4", depth: "7 7/8", height: "11 1/2" },		
+          },
+          Outdoor: {
+            in: { width: "30 1/8", depth: "11 15/16", height: "21 7/8" },		
+          }
+        },
+        "MIU-B12GW-2 / MOU-B12G-2": {
+          Indoor: {
+            in: { width: "31 5/8", depth: "7 7/8", height: "11 5/8" },		
+          },
+          Outdoor: {
+            in: { width: "30 1/8", depth: "11 15/16", height: "21 7/8" },		
+          }
+        },  
+        "MIU-B18GW-2 / MOU-B18G-2": {
+          Indoor: {
+            in: { width: "38 1/4", depth: "9", height: "12 11/16" },		
+          },
+          Outdoor: {
+            in: { width: "31 3/4", depth: "13", height: "21 13/16" },		
+          }
+        },
+        "MIU-B24GW-2 / MOU-B24G-2": {
+          Indoor: { 
+            in: { width: "42 5/8", depth: "9 1/4", height: "13 5/16" },
+         },
+          Outdoor: { 
+            in: { width: "35 1/16", depth: "13 1/2", height: "26 1/2" },
+          },
+        },
+        "MIU-B30W-2 / MOU-30G-2": {
+          Indoor: {
+            in: { width: "49 5/8", depth: "11 3/16", height: "14 5/16" },		
+          },
+          Outdoor: {
+            in: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },		
+          }
+        },
+        "MIU-B36W-2 / MOU-B36G-2": {
+          Indoor: {
+            in: { width: "49 5/8", depth: "11 3/16", height: "14 5/16" },		
+          },
+          Outdoor: {
+            in: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },		
+          }
+        },
+      },
+      extreme: {
+        "MIU-B09W-2 / MOU-B09H-2": {
+          Indoor: {
+            in: { width: "31 5/8", depth: "7 7/8", height: "11 5/8" },		
+          },
+          Outdoor: { 
+            in: { width: "31 3/4", depth: "13", height: "21 13/16" },		
+          }
+        },
+        "MIU-B12W-2 / MOU-B12H-2": {
+          Indoor: {
+            in: { width: "31 5/8", depth: "7 7/8", height: "11 5/8" },			
+          },
+          Outdoor: { 
+            in: { width: "31 3/4", depth: "13", height: "21 13/16" },			
+          }
+        },
+        "MIU-B18W-2 / MOU-B18H-2": {
+          Indoor: {
+            in: { width: "42 5/8", depth: "9 1/4", height: "13 5/16" },			
+          },
+          Outdoor: { 
+            in: { width: "35 1/16", depth: "13 1/2", height: "26 1/2" },		
+          }
+        },
+        "MIU-B24W-2 / MOU-B24H-2": {
+          Indoor: {
+            in: { width: "42 5/8", depth: "9 1/4", height: "13 5/16" },		
+         },
+          Outdoor: { 
+            in: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },		
+          },
+        },
+        "MIU-B33HW-2 / MOU-B33H-2": {
+          Indoor: {
+            in: { width: "49 5/8", depth: "11 3/16", height: "14 5/16" },			
+          },
+          Outdoor: {
+            in: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },		
+          }
+        }
+      }
+    },
+    pipeSizes: {
+      standard: {
+        "MIU-B09GW-1 / MOU-B09G-1": {
+          Liquid: "1/4\"",
+          Gas: "3/8\"",
+        },
+        "MIU-B12GW-1 / MOU-B12G-1": {
+          Liquid: "1/4\"",
+          Gas: "3/8\"",
+        },
+        "MIU-B09GW-2 / MOU-B09G-2": {
+          Liquid: "1/4\"",
+          Gas: "3/8\"",
+        },
+        "MIU-B12GW-2 / MOU-B12G-2": {
+          Liquid: "1/4\"",
+          Gas: "3/8\"",
+        },
+        "MIU-B18GW-2 / MOU-B18G-2": {
+          Liquid: "1/4\"",
+          Gas: "1/2\"",
+        },
+        "MIU-B24GW-2 / MOU-B24G-2": {
+          Liquid: "3/8\"",
+          Gas: "5/8\"",
+        },
+        "MIU-B30W-2 / MOU-B30G-2": {
+          Liquid: "3/8\"",
+          Gas: "5/8\"",
+        },
+        "MIU-B36W-2 / MOU-B36G-2": {
+          Liquid: "3/8\"",
+          Gas: "5/8\"",
+        },
+      },
+      extreme: {
+        "MIU-B09W-2 / MOU-B09H-2": {
+          Liquid: "1/4\"",
+          Gas: "3/8\"",
+        },
+        "MIU-B12W-2 / MOU-B12H-2": {
+          Liquid: "1/4\"",
+          Gas: "3/8\"",
+        },
+        "MIU-B18W-2 / MOU-B18H-2": {
+          Liquid: "1/4\"",
+          Gas: "1/2\"",
+        },
+        "MIU-B24W-2 / MOU-B24H-2": {
+          Liquid: "3/8\"",
+          Gas: "5/8\"",
+        },
+        "MIU-B33HW-2 / MOU-B33H-2": {
+          Liquid: "3/8\"",
+          Gas: "3/4\"",
+        },
+      }
+    },
+    operatingRanges: {
+      standard: {
+        "MIU-B09W-1 / MOU-B09G-1": {
+        "MIU-B24GW-2 / MOU-B24G-2": { 
+          Cooling: {
+            f: [5,122],
+            c: [-15,50],
+          },
+          Heating: {
+            f: [5,75],
+            c: [-15,24]
+          }
+        }
+      }
+    },
     highlightTags: ["Wall Mounted", "Single-Zone", "Direct Pairing"],
     singleZoneOutdoorUnits: {
       standard: {
@@ -554,28 +737,6 @@ const baseProductFamilies454B = {
     ],
   },
 
-  "light-commercial-split-system-outdoor": {
-    eyebrow: "Light Commercial Systems",
-    categoryLabel: "Light Commercial Outdoor",
-    title: "Split System Outdoor Units",
-    description:
-      "CT Morley light commercial split system outdoor units for larger-capacity applications, available in standard and extreme heating configurations.",
-    specs: [
-      { label: "System Type", value: "Light Commercial" },
-      { label: "Mounting", value: "Outdoor Unit" },
-      { label: "Application", value: "Light Commercial" },
-      { label: "Heating", value: "Standard / Extreme" },
-      { label: "Voltage", value: "Varies by system" },
-      { label: "Refrigerant", value: "R454B" },
-      { label: "Operation", value: "Heating + Cooling" },
-    ],
-    highlightTags: ["Outdoor Unit", "Split System", "Light Commercial"],
-    outdoorUnits: {
-      splitSystemStandard: ["MOU-B36L-2", "MOU-B48L-2", "MOU-B60L-2"],
-      splitSystemExtreme: ["MOU-B36LH-2", "MOU-B48LH-2", "MOU-B55LH-2"],
-    },
-  },
-
   "light-commercial-condenser-outdoor": {
     eyebrow: "Multi-Position AHU Systems",
     categoryLabel: "Light Commercial Outdoor",
@@ -594,18 +755,18 @@ const baseProductFamilies454B = {
     highlightTags: ["Outdoor Unit", "Condenser", "Light Commercial"],
     outdoorUnits: {
       condenserStandard: [
-        "MOU-B24V-4",
-        "MOU-B30V-4",
-        "MOU-B36V-4",
-        "MOU-B48V-4",
-        "MOU-B60V-4",
+        "MIU-B24V-4 / MOU-B24V-4",
+        "MIU-B30V-4 / MOU-B30V-4",
+        "MIU-B36V-4 / MOU-B36V-4",
+        "MIU-B48V-4 / MOU-B48V-4",
+        "MIU-B60V-4 / MOU-B60V-4",
       ],
       condenserExtreme: [
-        "MOU-B24VH-4",
-        "MOU-B30VH-4",
-        "MOU-B36VH-4",
-        "MOU-B48VH-4",
-        "MOU-B55VH-4",
+        "MIU-B24V-4 / MOU-B24VH-4",
+        "MIU-B30V-4 / MOU-B30VH-4",
+        "MIU-B36V-4 / MOU-B36VH-4",
+        "MIU-B48V-4 / MOU-B48VH-4",
+        "MIU-B60V-4 / MOU-B55VH-4",
       ],
     },
   },
@@ -626,10 +787,16 @@ const baseProductFamilies454B = {
       { label: "Operation", value: "Heating + Cooling" },
     ],
     highlightTags: ["Cassette", "Light Commercial", "Indoor Unit"],
-    indoorUnits: [
-      { model: "MIU-B36LC-2", size: "36" },
-      { model: "MIU-B48LC-2", size: "48" },
-    ],
+    pairings: {
+      standard: [
+        "MIU-B36LC-2 / MOU-B36L-2",
+        "MIU-B48LC-2 / MOU-B48L-2",
+      ],
+      extreme: [
+        "MIU-B36LC-2 / MOU-B36LH-2",
+        "MIU-B48LC-2 / MOU-B48LH-2",
+      ],
+    },
   },
 
   "light-commercial-ducted": {
@@ -648,11 +815,18 @@ const baseProductFamilies454B = {
       { label: "Operation", value: "Heating + Cooling" },
     ],
     highlightTags: ["Ducted", "Light Commercial", "Indoor Unit"],
-    indoorUnits: [
-      { model: "MIU-B36LD-2", size: "36" },
-      { model: "MIU-B48LD-2", size: "48" },
-      { model: "MIU-B60LD-2", size: "60" },
-    ],
+    pairings: {
+      standard: [
+        "MIU-B36LD-2 / MOU-B36L-2",
+        "MIU-B48LD-2 / MOU-B48L-2",
+        "MIU-B60LD-2 / MOU-B60L-2",
+      ],
+      extreme: [
+        "MIU-B36LD-2 / MOU-B36LH-2",
+        "MIU-B48LD-2 / MOU-B48LH-2",
+        "MIU-B60LD-2 / MOU-B55LH-2",
+      ],
+    },
   },
 
   "light-commercial-floor-mounted": {
@@ -671,36 +845,18 @@ const baseProductFamilies454B = {
       { label: "Operation", value: "Heating + Cooling" },
     ],
     highlightTags: ["Floor Mounted", "Light Commercial", "Indoor Unit"],
-    indoorUnits: [
-      { model: "MIU-B36LF-2", size: "36" },
-      { model: "MIU-B48LF-2", size: "48" },
-      { model: "MIU-B60LF-2", size: "60" },
-    ],
-  },
-
-  "light-commercial-ahu": {
-    eyebrow: "Light Commercial Systems",
-    categoryLabel: "Light Commercial AHU",
-    title: "AHU Systems",
-    description:
-      "CT Morley light commercial AHU systems are designed for larger ducted applications.",
-    specs: [
-      { label: "System Type", value: "Light Commercial" },
-      { label: "Mounting", value: "AHU / Air Handler" },
-      { label: "Application", value: "Light Commercial" },
-      { label: "Heating", value: "Standard / Extreme" },
-      { label: "Voltage", value: "Varies by system" },
-      { label: "Refrigerant", value: "R454B" },
-      { label: "Operation", value: "Heating + Cooling" },
-    ],
-    highlightTags: ["AHU", "Light Commercial", "Indoor Unit"],
-    indoorUnits: [
-      { model: "MIU-B24V-4", size: "24" },
-      { model: "MIU-B30V-4", size: "30" },
-      { model: "MIU-B36V-4", size: "36" },
-      { model: "MIU-B48V-4", size: "48" },
-      { model: "MIU-B60V-4", size: "60" },
-    ],
+    pairings: {
+      standard: [
+        "MIU-B36LF-2 / MOU-B36L-2",
+        "MIU-B48LF-2 / MOU-B48L-2",
+        "MIU-B60LF-2 / MOU-B60L-2",
+      ],
+      extreme: [
+        "MIU-B36LF-2 / MOU-B36LH-2",
+        "MIU-B48LF-2 / MOU-B48LH-2",
+        "MIU-B60LF-2 / MOU-B55LH-2",
+      ],
+    },
   },
 
   "accessories-heater-v4": {
