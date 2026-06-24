@@ -325,6 +325,7 @@ const baseProductFamilies454B = {
     operatingRanges: {
       standard: {
         "MIU-B09W-1 / MOU-B09G-1": {
+        },
         "MIU-B24GW-2 / MOU-B24G-2": { 
           Cooling: {
             f: [5,122],
