@@ -1257,22 +1257,190 @@ const baseProductFamilies454B = {
         }
       },
       extreme:{
-        
+        "MIU-B24V-4 / MOU-B24VH-4": {
+          Indoor: { width: "17 9/16", depth: "21 1/16", height: "45" },		
+          Outdoor: { width: "35 1/16", depth: "13 1/2", height: "26 1/2" },		
+        },
+        "MIU-B30V-4 / MOU-B30VH-4": {
+          Indoor: { width: "21 1/16", depth: "21 1/16", height: "49 1/16" },		
+          Outdoor: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },		
+        },
+        "MIU-B36V-4 / MOU-B36VH-4": {
+          Indoor: { width: "21 1/16", depth: "21 1/16", height: "49 1/16" },		
+          Outdoor: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },		
+        },
+        "MIU-B48V-4 / MOU-B48VH-4": {
+          Indoor: { width: "24 1/2", depth: "21 1/16", height: "53" },		
+          Outdoor: { width: "38 5/8", depth: "16 3/8", height: "38 7/16" },		
+        },
+        "MIU-B60V-4 / MOU-B55VH-4": {
+          Indoor: { width: "24 1/2", depth: "21 1/16", height: "53" },		
+          Outdoor: { width: "37 1/2", depth: "16 3/8", height: "52 1/2" },		
+        }
       }
     },
     pipeSizes: {
-
-    }
+      standard: {
+        "MIU-B24V-4 / MOU-B24V-4": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+        "MIU-B30V-4 / MOU-B30V-4": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+        "MIU-B36V-4 / MOU-B36V-4": { 
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+        "MIU-B48V-4 / MOU-B48V-4": { 
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+        "MIU-B60V-4 / MOU-B60V-4": { 
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+      },
+      extreme: {
+        "MIU-B24V-4 / MOU-B24VH-4": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+        "MIU-B30V-4 / MOU-B30VH-4": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+        "MIU-B36V-4 / MOU-B36VH-4": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+        "MIU-B48V-4 / MOU-B48VH-4": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+        "MIU-B60V-4 / MOU-B55VH-4": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        }
+      }
+    },
+    operatingRanges: {
+      standard:{ 
+        "MIU-B24V-4 / MOU-B24V-4": {
+          Cooling: {
+            f: [-13, 122],
+            c: [-25, 50],
+          },
+          Heating: {
+            f: [-13, 75],
+            c: [-25, 24]
+          }
+        },
+        "MIU-B30V-4 / MOU-B30V-4": {
+          Cooling: {
+            f: [-13, 122],
+            c: [-25, 50],
+          },
+          Heating: {
+            f: [-13, 75],
+            c: [-25, 24]
+          }
+        },
+        "MIU-B36V-4 / MOU-B36V-4": {
+          Cooling: {
+            f: [-13, 122],
+            c: [-25, 50],
+          },
+          Heating: {
+            f: [-13, 75],
+            c: [-25, 24]
+          }
+        },
+        "MIU-B48V-4 / MOU-B48V-4": {
+          Cooling: {
+            f: [-13, 122],
+            c: [-25, 50],
+          },
+          Heating: {
+            f: [-13, 75],
+            c: [-25, 24]
+          }
+        },
+        "MIU-B60V-4 / MOU-B60V-4": {
+          Cooling: {
+            f: [-13, 122],
+            c: [-25, 50],
+          },
+          Heating: {
+            f: [-13, 75],
+            c: [-25, 24]
+          }
+        },
+      },
+      extreme:{
+        "MIU-B24V-4 / MOU-B24VH-4": {
+          Cooling: {
+            f: [-22, 122],
+            c: [-30, 50],
+          },
+          Heating: {
+            f:[-22, 75],
+            c:[-30, 24]
+          }
+        },
+        "MIU-B30V-4 / MOU-B30VH-4": {
+          Cooling: {
+            f: [-22, 122],
+            c: [-30, 50],
+          },
+          Heating: {
+            f:[-22, 75],
+            c:[-30, 24]
+          }
+        },
+        "MIU-B36V-4 / MOU-B36VH-4": {
+          Cooling: {
+            f: [-22, 122],
+            c: [-30, 50],
+          },
+          Heating: {
+            f:[-22, 75],
+            c:[-30, 24]
+          }
+        },
+        "MIU-B48V-4 / MOU-B48VH-4": {
+          Cooling: {
+            f: [-22, 122],
+            c: [-30, 50],
+          },
+          Heating: {
+            f:[-22, 75],
+            c:[-30, 24]
+          }
+        },
+        "MIU-B60V-4 / MOU-B55VH-4": {
+          Cooling: {
+            f: [-22, 122],
+            c: [-30, 50],
+          },
+          Heating: {
+            f:[-22, 75],
+            c:[-30, 24]
+          }
+        },
+      }
+    },
     highlightTags: ["Outdoor Unit", "Condenser", "Light Commercial"],
     outdoorUnits: {
-      condenserStandard: [
+      standard: [
         "MIU-B24V-4 / MOU-B24V-4",
         "MIU-B30V-4 / MOU-B30V-4",
         "MIU-B36V-4 / MOU-B36V-4",
         "MIU-B48V-4 / MOU-B48V-4",
         "MIU-B60V-4 / MOU-B60V-4",
       ],
-      condenserExtreme: [
+      extreme: [
         "MIU-B24V-4 / MOU-B24VH-4",
         "MIU-B30V-4 / MOU-B30VH-4",
         "MIU-B36V-4 / MOU-B36VH-4",
@@ -1297,6 +1465,50 @@ const baseProductFamilies454B = {
       { label: "Refrigerant", value: "R454B" },
       { label: "Operation", value: "Heating + Cooling" },
     ],
+    dimensions: {
+      standard: {
+        "MIU-B36LC-2 / MOU-B36L-2": {
+          Indoor: { width: "32 11/16", depth: "32 11/16", height: "9 11/16" },		
+          Outdoor: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },		
+        },
+        "MIU-B48LC-2 / MOU-B48L-2": {
+          Indoor: { width: "32 11/16", depth: "32 11/16", height: "11 5/16" },		
+          Outdoor: { width: "37 1/2", depth: "16 3/8", height: "52 1/2" },		
+        },
+      },
+      extreme: {
+        "MIU-B36LC-2 / MOU-B36LH-2": {
+          Indoor: { width: "32 11/16", depth: "32 11/16", height: "9 11/16" },		
+          Outdoor: { width: "38 5/8", depth: "16 3/8", height: "38 7/16" },		
+        },
+        "MIU-B48LC-2 / MOU-B48LH-2": {
+          Indoor: { width: "32 11/16", depth: "32 11/16", height: "11 5/16" },		
+          Outdoor: { width: "37 1/2", depth: "16 3/8", height: "52 1/2" },		
+        },
+      }
+    },
+    pipeSizes: {
+      standard: {
+        "MIU-B36LC-2 / MOU-B36L-2": {
+          Liquid: "3/8\"",
+          Gas: "3/4\"",
+        },
+        "MIU-B48LC-2 / MOU-B48L-2": {
+          Liquid: "3/8\"",
+          Gas: "3/4\"",
+        },
+      },
+      extreme: {
+        "MIU-B36LC-2 / MOU-B36LH-2": {
+          Liquid: "3/8\"",
+          Gas: "3/4\"",
+        },
+        "MIU-B48LC-2 / MOU-B48LH-2": {
+          Liquid: "3/8\"",
+          Gas: "3/4\"",
+        },
+      }
+    },
     highlightTags: ["Cassette", "Light Commercial", "Indoor Unit"],
     pairings: {
       standard: [
@@ -1325,6 +1537,66 @@ const baseProductFamilies454B = {
       { label: "Refrigerant", value: "R454B" },
       { label: "Operation", value: "Heating + Cooling" },
     ],
+    dimensions: {
+      standard: {
+        "MIU-B36LD-2 / MOU-B36L-2": {
+          Indoor: { width: "47 1/4", depth: "29 9/16", height: "11 13/16" },		
+          Outdoor: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },		
+        },
+        "MIU-B48LD-2 / MOU-B48L-2": {
+          Indoor: { width: "47 1/4", depth: "29 9/16", height: "11 13/16" },		
+          Outdoor: { width: "37 1/2", depth: "16 3/8", height: "52 1/2" },		
+        },
+        "MIU-B60LD-2 / MOU-B60L-2": {
+          Indoor: { width: "55 1/8", depth: "31 1/2", height: "15" },		
+          Outdoor: { width: "37 1/2", depth: "16 3/8", height: "52 1/2" },		
+        }
+      },
+      extreme: {
+        "MIU-B36LD-2 / MOU-B36LH-2": {
+          Indoor: { width: "47 1/4", depth: "29 9/16", height: "11 13/16" },		
+          Outdoor: { width: "38 5/8", depth: "16 3/8", height: "38 7/16" },		
+        },
+        "MIU-B48LD-2 / MOU-B48LH-2": {
+          Indoor: { width: "47 1/4", depth: "29 9/16", height: "11 13/16" },		
+          Outdoor: { width: "37 1/2", depth: "16 3/8", height: "52 1/2" },		
+        },
+        "MIU-B60LD-2 / MOU-B55LH-2": {
+          Indoor: { width: "55 1/8", depth: "31 1/2", height: "15" },		
+          Outdoor: { width: "37 1/2", depth: "16 3/8", height: "52 1/2" },		
+        }
+      }
+    },
+    pipeSizes: {
+      standard: {
+        "MIU-B36LD-2 / MOU-B36L-2": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+        "MIU-B48LD-2 / MOU-B48L-2": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+        "MIU-B60LD-2 / MOU-B60L-2": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+      },
+      extreme: {
+        "MIU-B36LD-2 / MOU-B36LH-2": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+        "MIU-B48LD-2 / MOU-B48LH-2": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+        "MIU-B60LD-2 / MOU-B55LH-2": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        }
+      }
+    },
     highlightTags: ["Ducted", "Light Commercial", "Indoor Unit"],
     pairings: {
       standard: [
@@ -1355,6 +1627,66 @@ const baseProductFamilies454B = {
       { label: "Refrigerant", value: "R454B" },
       { label: "Operation", value: "Heating + Cooling" },
     ],
+    dimensions: {
+      standard: {
+        "MIU-B36LF-2 / MOU-B36L-2": {
+          Indoor: { width: "65", depth: "26 5/8", height: "9 1/4" },		
+          Outdoor: { width: "37 1/4", depth: "16 3/16", height: "31 15/16" },		
+        },
+        "MIU-B48LF-2 / MOU-B48L-2": {
+          Indoor: { width: "65", depth: "26 5/8", height: "9 1/4" },		
+          Outdoor: { width: "37 1/2", depth: "16 3/8", height: "52 1/2" },		
+        },
+        "MIU-B60LF-2 / MOU-B60L-2": {
+          Indoor: { width: "65", depth: "26 5/8", height: "9 1/4" },		
+          Outdoor: { width: "37 1/2", depth: "16 3/8", height: "52 1/2" },		
+        }
+      },
+      extreme: {
+        "MIU-B36LF-2 / MOU-B36LH-2": {
+          Indoor: { width: "65", depth: "26 5/8", height: "9 1/4" },	
+          Outdoor: { width: "38 5/8", depth: "16 3/8", height: "38 7/16" },		
+        },
+        "MIU-B48LF-2 / MOU-B48LH-2": {
+          Indoor: { width: "65", depth: "26 5/8", height: "9 1/4" },	
+          Outdoor: { width: "37 1/2", depth: "16 3/8", height: "52 1/2" },		
+        },
+        "MIU-B60LF-2 / MOU-B55LH-2": {
+          Indoor: { width: "65", depth: "26 5/8", height: "9 1/4" },	
+          Outdoor: { width: "37 1/2", depth: "16 3/8", height: "52 1/2" },		
+        },
+      }
+    },
+    pipeSizes: {
+      standard: {
+        "MIU-B36LF-2 / MOU-B36L-2": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+        "MIU-B48LF-2 / MOU-B48L-2": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+        "MIU-B60LF-2 / MOU-B60L-2": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        }
+      },
+      extreme: {
+        "MIU-B36LF-2 / MOU-B36LH-2": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+        "MIU-B48LF-2 / MOU-B48LH-2": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+        "MIU-B60LF-2 / MOU-B55LH-2": {
+          Liquid: "3/8\"",
+          Gas: "3/4\""
+        },
+      }
+    },
     highlightTags: ["Floor Mounted", "Light Commercial", "Indoor Unit"],
     pairings: {
       standard: [
