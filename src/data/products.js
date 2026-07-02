@@ -1,6 +1,6 @@
 const replaceBSeriesWithASeries = (value) => {
   if (typeof value === "string") {
-    return value.replace(/\b(M[IO]U)-B/g, "$1-A");
+    return value.replace(/\b(MIU|MOU|MAC)-B/g, "$1-A");
   }
 
   if (Array.isArray(value)) {
@@ -1212,9 +1212,9 @@ const baseProductFamilies454B = {
     ],
     highlightTags: ["A Coil", "Residential", "Indoor Unit"],
     indoorUnits: [
-      { model: "MAC-A3617", size: "36" },
-      { model: "MAC-A4821", size: "48" },
-      { model: "MAC-A6024", size: "60" },
+      { model: "MAC-B3617", size: "36" },
+      { model: "MAC-B4821", size: "48" },
+      { model: "MAC-B6024", size: "60" },
     ],
   },
 
@@ -1786,11 +1786,11 @@ if (productFamiliesR410A["residential-single-zone-wall-mounted-r410a"]) {
       .singleZoneOutdoorUnits?.extreme || [];
 
   productFamiliesR410A["residential-single-zone-wall-mounted-r410a"]
-    .singleZoneOutdoorUnits.extreme = extremeList.map((model) =>
-    model === "MIU-A33HW-2 / MOU-A33H-2"
-      ? "MIU-A33W-2 / MOU-A33H-2"
-      : model
-  );
+    .singleZoneOutdoorUnits.extreme = extremeList.filter(
+      (model) =>
+        model !== "MIU-A33HW-2 / MOU-A33H-2" &&
+        model !== "MIU-A33W-2 / MOU-A33H-2"
+    );
 }
 
 export const productFamilies = {

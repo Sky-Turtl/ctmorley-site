@@ -19,10 +19,10 @@ export default function ProductsPage({
     // Remove any trailing hyphens
     baseName = baseName.replace(/-+$/, "");
     // Extract refrigerant code (e.g., R410A -> 410a, R454B -> 454b)
-    const refCode = refrigerant
-      .replace(/R/, "")
-      .toLowerCase();
-    return `${baseName}-cover-${refCode}`;
+    // const refCode = refrigerant
+    //   .replace(/R/, "")
+    //   .toLowerCase();
+    return `${baseName}-cover-454b`;
   };
 
   const heatingLabelMap = {
@@ -318,6 +318,8 @@ export default function ProductsPage({
                 src={`${import.meta.env.BASE_URL}product-images/${titleToImageFilename(family.title, activeRefrigerant)}.png`}
                 alt={family.title}
                 className="max-h-full max-w-full object-contain"
+                loading="lazy"
+                decoding="async"
               />
             </div>
 

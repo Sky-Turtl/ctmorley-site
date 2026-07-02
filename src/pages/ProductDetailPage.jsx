@@ -374,37 +374,37 @@ export default function ProductDetailPage({
     return accessories;
   };
 
+  const toBSeriesModel = (value) => {
+    if (typeof value !== "string") return value;
+    return value.replace(/\b(MIU|MOU)-A/g, "$1-B");
+  };
+
+  const normalizePairedModel = (pairString) => {
+    const [first, second] = pairString.split(" / ").map((item) => item.trim());
+    const mou = [first, second].find((item) => item.startsWith("MOU"));
+    const miu = [first, second].find((item) => item.startsWith("MIU"));
+    return mou && miu ? `${mou}&${miu}` : pairString.replace(/\s*\/\s*/g, "&");
+  };
+
   const getUnitImagePath = (model, unitObj) => {
     if (!model) return null;
-    
-    // Handle paired models: remove spaces and replace "/" with "&"
-    // Ensure MOU comes before MIU in paired units
-    // e.g., "MIU-B09W-2 / MOU-B09H-2" becomes "MOU-B09H-2&MIU-B09W-2"
-    if (model.includes(" / ")) {
-      const [first, second] = model.split(" / ").map(m => m.trim());
-      // Ensure MOU is first, then MIU
-      const mou = [first, second].find(m => m.startsWith("MOU"));
-      const miu = [first, second].find(m => m.startsWith("MIU"));
-      const normalizedModel = mou && miu ? `${mou}&${miu}` : model.replace(/\s*\/\s*/g, "&");
+
+    const imageModel = toBSeriesModel(model);
+
+    if (imageModel.includes(" / ")) {
+      const normalizedModel = normalizePairedModel(imageModel);
       return `${import.meta.env.BASE_URL}unit-images/${normalizedModel}-cover.png`;
     }
-    
-    // For single MIU units with compatible outdoor units, create paired image path
-    if (model.startsWith("MIU") && unitObj?.compatibleMultiZoneOutdoorUnits) {
+
+    if (imageModel.startsWith("MIU") && unitObj?.compatibleMultiZoneOutdoorUnits) {
       const standardOutdoor = unitObj.compatibleMultiZoneOutdoorUnits.standard?.[0];
       if (standardOutdoor) {
-        return `${import.meta.env.BASE_URL}unit-images/${standardOutdoor}&${model}-cover.png`;
+        const outdoorImageModel = toBSeriesModel(standardOutdoor);
+        return `${import.meta.env.BASE_URL}unit-images/${outdoorImageModel}&${imageModel}-cover.png`;
       }
     }
-    
-    // For MOU units, try to find corresponding MIU by replacing MOU with MIU
-    // For extreme models (VH), remove the H to get the base MIU model
-    // e.g., MOU-B48VH-4 → MIU-B48V-4, MOU-B48V-4 → MIU-B48V-4
-    // if (model.startsWith("MOU")) {
-    //   return `${import.meta.env.BASE_URL}unit-images/${model}-cover.png`;
-    // }
 
-    return `${import.meta.env.BASE_URL}unit-images/${model}-cover.png`;
+    return `${import.meta.env.BASE_URL}unit-images/${imageModel}-cover.png`;
   };
 
   return (
@@ -425,6 +425,8 @@ export default function ProductDetailPage({
                   src={getUnitImagePath(unit?.model || detail?.model, unit)}
                   alt={unit?.model || detail?.model}
                   className="max-h-full max-w-full object-contain p-4"
+                  loading="lazy"
+                  decoding="async"
                 />
               ) : (
                 <div className="text-slate-400">No unit image available</div>
