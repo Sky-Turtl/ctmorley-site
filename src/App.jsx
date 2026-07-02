@@ -31,6 +31,7 @@ const buildSearchIndex = (families) => {
         results.push({
           id: `${slug}__indoor__${unit.model}`,
           model: unit.model,
+          unit,               // <-- ADD THIS
           title: unit.model,
           subtitle: `${familyTitle} · Indoor Unit`,
           familyTitle,

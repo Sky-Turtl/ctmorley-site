@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { getProductDetail } from "../data/productDetail";
-const submittals = import.meta.glob('../assets/Submittals/*.pdf', { eager: true });
+import { getUnitImagePath } from "../utils/getUnitImagePath";
+
+const submittals = import.meta.glob("../assets/Submittals/*.pdf", { eager: true });
 
 export default function ProductDetailPage({
   productFamilies,
@@ -373,40 +375,7 @@ export default function ProductDetailPage({
 
     return accessories;
   };
-
-  const toBSeriesModel = (value) => {
-    if (typeof value !== "string") return value;
-    return value.replace(/\b(MIU|MOU)-A/g, "$1-B");
-  };
-
-  const normalizePairedModel = (pairString) => {
-    const [first, second] = pairString.split(" / ").map((item) => item.trim());
-    const mou = [first, second].find((item) => item.startsWith("MOU"));
-    const miu = [first, second].find((item) => item.startsWith("MIU"));
-    return mou && miu ? `${mou}&${miu}` : pairString.replace(/\s*\/\s*/g, "&");
-  };
-
-  const getUnitImagePath = (model, unitObj) => {
-    if (!model) return null;
-
-    const imageModel = toBSeriesModel(model);
-
-    if (imageModel.includes(" / ")) {
-      const normalizedModel = normalizePairedModel(imageModel);
-      return `${import.meta.env.BASE_URL}unit-images/${normalizedModel}-cover.png`;
-    }
-
-    if (imageModel.startsWith("MIU") && unitObj?.compatibleMultiZoneOutdoorUnits) {
-      const standardOutdoor = unitObj.compatibleMultiZoneOutdoorUnits.standard?.[0];
-      if (standardOutdoor) {
-        const outdoorImageModel = toBSeriesModel(standardOutdoor);
-        return `${import.meta.env.BASE_URL}unit-images/${outdoorImageModel}&${imageModel}-cover.png`;
-      }
-    }
-
-    return `${import.meta.env.BASE_URL}unit-images/${imageModel}-cover.png`;
-  };
-
+  
   return (
     <section className="mx-auto max-w-6xl px-6 py-10">
       <button
