@@ -10,8 +10,11 @@ export default function Header({
   const [query, setQuery] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLocatorDropdown, setShowLocatorDropdown] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const containerRef = useRef(null);
   const locatorRef = useRef(null);
+  const mobileMenuRef = useRef(null);
+  const locatorHideTimeoutRef = useRef(null);
 
   const navItems = [
     { label: "Home", key: "home" },
@@ -27,14 +30,21 @@ export default function Header({
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (!containerRef.current?.contains(event.target)) {
+      if (
+        !containerRef.current?.contains(event.target) &&
+        !mobileMenuRef.current?.contains(event.target)
+      ) {
         setShowDropdown(false);
+        setShowMobileMenu(false);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      if (locatorHideTimeoutRef.current) {
+        clearTimeout(locatorHideTimeoutRef.current);
+      }
     };
   }, []);
 
@@ -54,8 +64,25 @@ export default function Header({
     onOpenProduct(productId);
   };
 
+  const openLocatorDropdown = () => {
+    if (locatorHideTimeoutRef.current) {
+      clearTimeout(locatorHideTimeoutRef.current);
+    }
+    setShowLocatorDropdown(true);
+  };
+
+  const closeLocatorDropdown = () => {
+    if (locatorHideTimeoutRef.current) {
+      clearTimeout(locatorHideTimeoutRef.current);
+    }
+
+    locatorHideTimeoutRef.current = window.setTimeout(() => {
+      setShowLocatorDropdown(false);
+    }, 140);
+  };
+
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white">
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white relative">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <button
           onClick={() => setPage("home")}
@@ -66,11 +93,11 @@ export default function Header({
             alt="CT Morley logo"
             className="h-10 w-auto"
           />
-          <div>
+          <div className="logo-text">
             <div className="text-lg font-semibold text-slate-900">
               CT MORLEY
             </div>
-            <div className="text-sm text-slate-500">
+            <div className="logo-subtitle text-sm text-slate-500">
               Heating & Cooling Systems
             </div>
           </div>
@@ -96,11 +123,18 @@ export default function Header({
 
           <div
             ref={locatorRef}
-            onMouseEnter={() => setShowLocatorDropdown(true)}
-            onMouseLeave={() => setShowLocatorDropdown(false)}
-            className="relative"
+            onMouseEnter={openLocatorDropdown}
+            onMouseLeave={closeLocatorDropdown}
+            className="relative py-2"
           >
-            <button className="flex cursor-pointer items-center gap-1 text-sm font-medium text-slate-600 hover:text-slate-900">
+            <button
+              type="button"
+              onClick={() => {
+                setShowLocatorDropdown(false);
+                setPage("wholesale-distributors");
+              }}
+              className="flex cursor-pointer items-center gap-1 text-sm font-medium text-slate-600 hover:text-slate-900"
+            >
               Locator
               <svg
                 className={`h-4 w-4 transition-transform ${
@@ -124,6 +158,10 @@ export default function Header({
               <div className="absolute right-0 top-full z-50 mt-2 w-48 rounded-sm border border-slate-200 bg-white shadow-lg">
                 <button
                   type="button"
+                  onClick={() => {
+                    setShowLocatorDropdown(false);
+                    setPage("wholesale-distributors");
+                  }}
                   className="cursor-pointer block w-full px-4 py-3 text-left text-sm font-medium text-slate-900 hover:bg-slate-50"
                 >
                   Wholesale Distributors
@@ -132,6 +170,79 @@ export default function Header({
             )}
           </div>
         </nav>
+
+        <div className="flex items-center gap-4 md:hidden">
+          <button
+            type="button"
+            onClick={() => setShowMobileMenu((prev) => !prev)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-sm border border-slate-300 text-slate-600 hover:bg-slate-100"
+          >
+            <span className="sr-only">Open menu</span>
+            <svg
+              className="h-6 w-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M4 7H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              <path d="M4 12H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              <path d="M4 17H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
+
+        {showMobileMenu && (
+          <div
+            ref={mobileMenuRef}
+            className="absolute left-1/2 top-full z-40 mt-2 min-w-[18rem] max-w-sm -translate-x-1/2 rounded-sm border border-slate-200 bg-white px-6 py-4 shadow-lg md:hidden"
+          >
+            <div className="space-y-3 text-center">
+              {navItems.map((item) => (
+                <button
+                  key={item.key}
+                  type="button"
+                  onClick={() => {
+                    setPage(item.key);
+                    setShowMobileMenu(false);
+                  }}
+                  className="block w-full rounded-sm px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                >
+                  {item.label}
+                </button>
+              ))}
+              <button
+                type="button"
+                onClick={() => {
+                  setPage("wholesale-distributors");
+                  setShowMobileMenu(false);
+                }}
+                className="block w-full rounded-sm px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+              >
+                Wholesale Distributors
+              </button>
+              <div className="mt-3 rounded-sm bg-slate-50 p-4">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-3 text-center">
+                  <input
+                    type="text"
+                    value={query}
+                    onChange={(event) => {
+                      setQuery(event.target.value);
+                      setShowDropdown(true);
+                    }}
+                    placeholder="Search by product code"
+                    className="w-full rounded-sm border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 focus:outline-none"
+                  />
+                  <button
+                    type="submit"
+                    className="inline-flex w-full items-center justify-center rounded-sm bg-orange-600 px-3 py-2 text-sm font-semibold text-white"
+                  >
+                    Go
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="hidden md:flex md:items-center">
           <div ref={containerRef} className="relative">

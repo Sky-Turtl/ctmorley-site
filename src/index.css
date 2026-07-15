@@ -1,4 +1,16 @@
 @import "tailwindcss";
+
+.logo-text,
+.logo-subtitle {
+  display: block;
+}
+
+@media (max-width: 960px) {
+  .logo-text {
+    display: none;
+  }
+}
+
 /* 
 @theme {
   --color-orange-50: #fdf2f2;

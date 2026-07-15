@@ -6,6 +6,7 @@ import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
+import WholesaleDistributorsPage from "./pages/WholesaleDistributorsPage";
 import { productFamilies } from "./data/products";
 
 const normalize = (value) =>
@@ -414,6 +415,7 @@ export default function App() {
 
         {page === "about" && <AboutPage />}
         {page === "contact" && <ContactPage />}
+        {page === "wholesale-distributors" && <WholesaleDistributorsPage />}
       </main>
     </div>
   );
