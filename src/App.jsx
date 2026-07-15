@@ -170,46 +170,47 @@ const scoreSearchResult = (item, query) => {
   return score;
 };
   
+const getStoredAppState = () => {
+  if (typeof window === "undefined") return null;
+
+  try {
+    const saved = window.sessionStorage.getItem("app-state");
+    return saved ? JSON.parse(saved) : null;
+  } catch {
+    return null;
+  }
+};
+
+const saveStoredAppState = (state) => {
+  if (typeof window === "undefined") return;
+
+  try {
+    window.sessionStorage.setItem("app-state", JSON.stringify(state));
+  } catch {
+    // Ignore storage errors so the UI still works.
+  }
+};
+
 export default function App() {
   const [page, setPage] = useState(() => {
-    try {
-      const saved = localStorage.getItem("app-state");
-      return saved ? JSON.parse(saved).page : "home";
-    } catch {
-      return "home";
-    }
+    const savedState = getStoredAppState();
+    return savedState?.page || "home";
   });
   const [activeMarket, setActiveMarket] = useState(() => {
-    try {
-      const saved = localStorage.getItem("app-state");
-      return saved ? JSON.parse(saved).activeMarket : "Residential";
-    } catch {
-      return "Residential";
-    }
+    const savedState = getStoredAppState();
+    return savedState?.activeMarket || "Residential";
   });
   const [activeProductId, setActiveProductId] = useState(() => {
-    try {
-      const saved = localStorage.getItem("app-state");
-      return saved ? JSON.parse(saved).activeProductId : null;
-    } catch {
-      return null;
-    }
+    const savedState = getStoredAppState();
+    return savedState?.activeProductId || null;
   });
   const [activeRefrigerant, setActiveRefrigerant] = useState(() => {
-    try {
-      const saved = localStorage.getItem("app-state");
-      return saved ? JSON.parse(saved).activeRefrigerant : "R454B";
-    } catch {
-      return "R454B";
-    }
+    const savedState = getStoredAppState();
+    return savedState?.activeRefrigerant || "R454B";
   });
   const [searchQuery, setSearchQuery] = useState(() => {
-    try {
-      const saved = localStorage.getItem("app-state");
-      return saved ? JSON.parse(saved).searchQuery : "";
-    } catch {
-      return "";
-    }
+    const savedState = getStoredAppState();
+    return savedState?.searchQuery || "";
   });
 
   const searchIndex = useMemo(() => buildSearchIndex(productFamilies), []);
@@ -254,16 +255,6 @@ export default function App() {
   };
 
   useEffect(() => {
-    const initialState = {
-      page: "home",
-      activeProductId: null,
-      activeMarket: "Residential",
-      activeRefrigerant: "R454B",
-      searchQuery: "",
-    };
-
-    window.history.replaceState(initialState, "", "");
-
     const handlePopState = (event) => {
       const state = event.state;
 
@@ -299,12 +290,9 @@ export default function App() {
       activeRefrigerant,
       searchQuery,
     };
-    
-    // Save to localStorage
-    localStorage.setItem("app-state", JSON.stringify(state));
-    
-    // Also update browser history
-    window.history.replaceState(state, "", "");
+
+    saveStoredAppState(state);
+    window.history.replaceState(state, "", window.location.pathname + window.location.search + window.location.hash);
   }, [page, activeProductId, activeMarket, activeRefrigerant, searchQuery]);
 
   useEffect(() => {
