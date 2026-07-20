@@ -9,18 +9,16 @@ export default function Header({
 }) {
   const [query, setQuery] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
-  const [showLocatorDropdown, setShowLocatorDropdown] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const containerRef = useRef(null);
-  const locatorRef = useRef(null);
   const mobileMenuRef = useRef(null);
-  const locatorHideTimeoutRef = useRef(null);
 
   const navItems = [
     { label: "Home", key: "home" },
     { label: "Products", key: "products" },
     { label: "About", key: "about" },
     { label: "Contact", key: "contact" },
+    { label: "Locator", key: "wholesale-distributors" },
   ];
 
   const suggestions =
@@ -42,9 +40,6 @@ export default function Header({
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
-      if (locatorHideTimeoutRef.current) {
-        clearTimeout(locatorHideTimeoutRef.current);
-      }
     };
   }, []);
 
@@ -64,22 +59,6 @@ export default function Header({
     onOpenProduct(productId);
   };
 
-  const openLocatorDropdown = () => {
-    if (locatorHideTimeoutRef.current) {
-      clearTimeout(locatorHideTimeoutRef.current);
-    }
-    setShowLocatorDropdown(true);
-  };
-
-  const closeLocatorDropdown = () => {
-    if (locatorHideTimeoutRef.current) {
-      clearTimeout(locatorHideTimeoutRef.current);
-    }
-
-    locatorHideTimeoutRef.current = window.setTimeout(() => {
-      setShowLocatorDropdown(false);
-    }, 140);
-  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white relative">
@@ -104,73 +83,24 @@ export default function Header({
         </button>
 
         <nav className="hidden items-center gap-8 md:flex">
-          {navItems.map((item) => {
-            const active = page === item.key;
-            return (
-              <button
-                key={item.key}
-                onClick={() => setPage(item.key)}
-                className={`cursor-pointer text-sm font-medium ${
-                  active
-                    ? "text-orange-700"
-                    : "text-slate-600 hover:text-slate-900"
-                }`}
-              >
-                {item.label}
-              </button>
-            );
-          })}
-
-          <div
-            ref={locatorRef}
-            onMouseEnter={openLocatorDropdown}
-            onMouseLeave={closeLocatorDropdown}
-            className="relative py-2"
-          >
-            <button
-              type="button"
-              onClick={() => {
-                setShowLocatorDropdown(false);
-                setPage("wholesale-distributors");
-              }}
-              className="flex cursor-pointer items-center gap-1 text-sm font-medium text-slate-600 hover:text-slate-900"
-            >
-              Locator
-              <svg
-                className={`h-4 w-4 transition-transform ${
-                  showLocatorDropdown ? "rotate-180" : ""
-                }`}
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5 7.5L10 12.5L15 7.5"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-
-            {showLocatorDropdown && (
-              <div className="absolute right-0 top-full z-50 mt-2 w-48 rounded-sm border border-slate-200 bg-white shadow-lg">
+            {navItems.map((item) => {
+              const active = page === item.key;
+              return (
                 <button
-                  type="button"
-                  onClick={() => {
-                    setShowLocatorDropdown(false);
-                    setPage("wholesale-distributors");
-                  }}
-                  className="cursor-pointer block w-full px-4 py-3 text-left text-sm font-medium text-slate-900 hover:bg-slate-50"
+                  key={item.key}
+                  onClick={() => setPage(item.key)}
+                  className={`cursor-pointer text-sm font-medium ${
+                    active
+                      ? "text-orange-700"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
                 >
-                  Wholesale Distributors
+                  {item.label}
                 </button>
-              </div>
-            )}
-          </div>
-        </nav>
+              );
+            })}
 
+          </nav>
         <div className="flex items-center gap-4 md:hidden">
           <button
             type="button"
@@ -210,16 +140,6 @@ export default function Header({
                   {item.label}
                 </button>
               ))}
-              <button
-                type="button"
-                onClick={() => {
-                  setPage("wholesale-distributors");
-                  setShowMobileMenu(false);
-                }}
-                className="block w-full rounded-sm px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900"
-              >
-                Wholesale Distributors
-              </button>
               <div className="mt-3 rounded-sm bg-slate-50 p-4">
                 <form onSubmit={handleSubmit} className="flex flex-col gap-3 text-center">
                   <input

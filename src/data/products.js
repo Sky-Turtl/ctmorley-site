@@ -1615,9 +1615,9 @@ const baseProductFamilies454B = {
   "light-commercial-floor-mounted": {
     eyebrow: "Light Commercial Systems",
     categoryLabel: "Light Commercial Floor Mounted",
-    title: "Floor Mounted Systems",
+    title: "Floor Ceiling Systems",
     description:
-      "CT Morley light commercial floor mounted systems provide an alternate indoor unit style for projects requiring larger-capacity comfort and flexible installation.",
+      "CT Morley light commercial floor ceiling systems provide an alternate indoor unit style for projects requiring larger-capacity comfort and flexible installation.",
     specs: [
       { label: "System Type", value: "Light Commercial" },
       { label: "Mounting", value: "Floor Mounted Indoor Unit" },
