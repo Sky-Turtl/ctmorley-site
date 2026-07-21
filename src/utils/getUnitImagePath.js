@@ -43,19 +43,13 @@ export const getUnitImagePath = (model, unitObj) => {
     return `${import.meta.env.BASE_URL}unit-images/${normalizedModel}-cover.png`;
   }
 
+  const isWallMountedIndoor = /^MIU-[A-Z0-9]+W-/.test(imageModel);
+
+  if (isWallMountedIndoor) {
+    return `${import.meta.env.BASE_URL}unit-images/${imageModel}-cover.png`;
+  }
+
   if (imageModel.startsWith("MIU")) {
-    const isWallMountedIndoor = /^MIU-B\d{2}W-/.test(imageModel);
-
-    if (isWallMountedIndoor) {
-      const singleZoneOutdoor =
-        unitObj?.compatibleSingleZoneOutdoorUnits?.standard?.[0] ??
-        unitObj?.compatibleSingleZoneOutdoorUnits?.extreme?.[0];
-
-      if (singleZoneOutdoor) {
-        return `${import.meta.env.BASE_URL}unit-images/${toBSeriesModel(singleZoneOutdoor)}&${imageModel}-cover.png`;
-      }
-    }
-
     const multiZoneOutdoor =
       unitObj?.compatibleMultiZoneOutdoorUnits?.standard?.[0] ??
       unitObj?.compatibleMultiZoneOutdoorUnits?.extreme?.[0];
