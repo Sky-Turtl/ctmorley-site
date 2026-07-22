@@ -3,13 +3,14 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import SectionTitle from "../components/SectionTitle";
 
-// Distribution currently covers the Northeast — states to the north and east
-// of Pennsylvania and New Jersey (New England plus New York).
+// Distribution currently covers the Northeast — New England, New York,
+// New Jersey, and Pennsylvania.
 const states = [
   { label: "Connecticut", value: "CT", lat: 41.597782, lon: -72.755371 },
   { label: "Maine", value: "ME", lat: 44.693947, lon: -69.381927 },
   { label: "Massachusetts", value: "MA", lat: 42.230171, lon: -71.530106 },
   { label: "New Hampshire", value: "NH", lat: 43.452492, lon: -71.563896 },
+  { label: "New Jersey", value: "NJ", lat: 40.298904, lon: -74.521011 },
   {
     label: "New York",
     value: "NY",
@@ -19,6 +20,7 @@ const states = [
     markerLon: -73.810683,
     zoom: 7,
   },
+  { label: "Pennsylvania", value: "PA", lat: 40.590752, lon: -77.209755 },
   { label: "Rhode Island", value: "RI", lat: 41.680893, lon: -71.511780 },
   { label: "Vermont", value: "VT", lat: 44.045876, lon: -72.710686 },
 ];
