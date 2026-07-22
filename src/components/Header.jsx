@@ -1,30 +1,25 @@
 import { useEffect, useRef, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { getSearchResults } from "../utils/search";
+import { productPath } from "../utils/routes";
 
-export default function Header({
-  page,
-  setPage,
-  onSearch,
-  onOpenProduct,
-  getSearchResults,
-}) {
+const navItems = [
+  { label: "Home", to: "/" },
+  { label: "Products", to: "/products" },
+  { label: "About", to: "/about" },
+  { label: "Contact", to: "/contact" },
+  { label: "Locator", to: "/locator" },
+];
+
+export default function Header() {
+  const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const containerRef = useRef(null);
   const mobileMenuRef = useRef(null);
 
-  const navItems = [
-    { label: "Home", key: "home" },
-    { label: "Products", key: "products" },
-    { label: "About", key: "about" },
-    { label: "Contact", key: "contact" },
-    { label: "Locator", key: "wholesale-distributors" },
-  ];
-
-  const suggestions =
-    query.trim() && typeof getSearchResults === "function"
-      ? getSearchResults(query, 6)
-      : [];
+  const suggestions = query.trim() ? getSearchResults(query, 6) : [];
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -45,26 +40,25 @@ export default function Header({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!query.trim() || typeof onSearch !== "function") return;
+    const trimmed = query.trim();
+    if (!trimmed) return;
 
     setShowDropdown(false);
-    onSearch(query);
+    setShowMobileMenu(false);
+    navigate(`/search?q=${encodeURIComponent(trimmed)}`);
   };
 
-  const handleSuggestionClick = (productId) => {
-    if (typeof onOpenProduct !== "function") return;
-
+  const handleSuggestionClick = () => {
     setQuery("");
     setShowDropdown(false);
-    onOpenProduct(productId);
+    setShowMobileMenu(false);
   };
-
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white relative">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <button
-          onClick={() => setPage("home")}
+        <Link
+          to="/"
           className="cursor-pointer flex items-center gap-6 text-left"
         >
           <img
@@ -80,27 +74,27 @@ export default function Header({
               Heating & Cooling Systems
             </div>
           </div>
-        </button>
+        </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-            {navItems.map((item) => {
-              const active = page === item.key;
-              return (
-                <button
-                  key={item.key}
-                  onClick={() => setPage(item.key)}
-                  className={`cursor-pointer text-sm font-medium ${
-                    active
-                      ? "text-orange-700"
-                      : "text-slate-600 hover:text-slate-900"
-                  }`}
-                >
-                  {item.label}
-                </button>
-              );
-            })}
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.to === "/"}
+              className={({ isActive }) =>
+                `cursor-pointer text-sm font-medium ${
+                  isActive
+                    ? "text-orange-700"
+                    : "text-slate-600 hover:text-slate-900"
+                }`
+              }
+            >
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
 
-          </nav>
         <div className="flex items-center gap-4 md:hidden">
           <button
             type="button"
@@ -128,17 +122,14 @@ export default function Header({
           >
             <div className="space-y-3 text-center">
               {navItems.map((item) => (
-                <button
-                  key={item.key}
-                  type="button"
-                  onClick={() => {
-                    setPage(item.key);
-                    setShowMobileMenu(false);
-                  }}
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => setShowMobileMenu(false)}
                   className="block w-full rounded-sm px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900"
                 >
                   {item.label}
-                </button>
+                </Link>
               ))}
               <div className="mt-3 rounded-sm bg-slate-50 p-4">
                 <form onSubmit={handleSubmit} className="flex flex-col gap-3 text-center">
@@ -210,10 +201,10 @@ export default function Header({
                 {suggestions.length > 0 ? (
                   <>
                     {suggestions.map((item) => (
-                      <button
+                      <Link
                         key={item.id}
-                        type="button"
-                        onClick={() => handleSuggestionClick(item.id)}
+                        to={productPath(item.id)}
+                        onClick={handleSuggestionClick}
                         className="cursor-pointer block w-full border-b border-slate-100 px-4 py-3 text-left hover:bg-slate-50"
                       >
                         <div className="text-sm font-semibold text-slate-900">
@@ -222,16 +213,12 @@ export default function Header({
                         <div className="mt-1 text-xs text-slate-500">
                           {item.subtitle}
                         </div>
-                      </button>
+                      </Link>
                     ))}
 
                     <button
                       type="button"
-                      onClick={() => {
-                        if (!query.trim() || typeof onSearch !== "function") return;
-                        setShowDropdown(false);
-                        onSearch(query);
-                      }}
+                      onClick={handleSubmit}
                       className="cursor-pointer block w-full bg-slate-50 px-4 py-3 text-left text-sm font-semibold text-orange-700 hover:bg-orange-50"
                     >
                       View all results

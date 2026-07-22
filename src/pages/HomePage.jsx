@@ -1,6 +1,10 @@
+import { Link } from "react-router-dom";
 import SectionTitle from "../components/SectionTitle";
 
-export default function HomePage({ openProducts, setPage }) {
+const productsPath = (market) =>
+  market ? `/products?market=${encodeURIComponent(market)}` : "/products";
+
+export default function HomePage() {
   return (
     <>
       <section className="bg-gradient-to-b from-orange-50 to-white">
@@ -20,19 +24,19 @@ export default function HomePage({ openProducts, setPage }) {
             </p>
 
             <div className="mt-8 flex gap-6">
-              <button
-                onClick={() => openProducts()}
+              <Link
+                to={productsPath()}
                 className="cursor-pointer bg-orange-600 px-7 py-3.5 text-sm font-semibold text-white"
               >
                 View Products
-              </button>
+              </Link>
 
-              <button
-                onClick={() => setPage("contact")}
+              <Link
+                to="/contact"
                 className="cursor-pointer border px-7 py-3.5 text-sm font-semibold"
               >
                 Contact Us
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -42,25 +46,25 @@ export default function HomePage({ openProducts, setPage }) {
             </div>
 
             <div className="mt-4 space-y-3">
-              <button
-                onClick={() => openProducts("Residential")}
-                className="w-full cursor-pointer border-b pb-3 text-left"
+              <Link
+                to={productsPath("Residential")}
+                className="block w-full cursor-pointer border-b pb-3 text-left"
               >
                 <div className="font-semibold">Residential</div>
                 <div className="text-sm text-slate-600">
                   Single-zone, multi-zone, and shared indoor systems
                 </div>
-              </button>
+              </Link>
 
-              <button
-                onClick={() => openProducts("Light Commercial")}
-                className="w-full cursor-pointer text-left"
+              <Link
+                to={productsPath("Light Commercial")}
+                className="block w-full cursor-pointer text-left"
               >
                 <div className="font-semibold">Light Commercial</div>
                 <div className="text-sm text-slate-600">
                   Larger capacity ducted, cassette, and AHU systems
                 </div>
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -86,12 +90,12 @@ export default function HomePage({ openProducts, setPage }) {
             <p className="mt-3 text-slate-600">
               Single-zone pairings, multi-zone outdoor units, and shared indoor families.
             </p>
-            <button
-              onClick={() => openProducts("Residential")}
+            <Link
+              to={productsPath("Residential")}
               className="mt-6 cursor-pointer text-sm font-semibold text-orange-700"
             >
               Explore Residential →
-            </button>
+            </Link>
           </div>
 
           <div className="flex min-h-min flex-col items-start border bg-white p-8 text-left">
@@ -106,12 +110,12 @@ export default function HomePage({ openProducts, setPage }) {
             <p className="mt-3 text-slate-600">
               EVOX, ducted, cassette, and AHU systems for larger applications.
             </p>
-            <button
-              onClick={() => openProducts("Light Commercial")}
+            <Link
+              to={productsPath("Light Commercial")}
               className="mt-6 cursor-pointer text-sm font-semibold text-orange-700"
             >
               Explore Light Commercial →
-            </button>
+            </Link>
           </div>
         </div>
       </section>

@@ -1,27 +1,46 @@
-export default function ProductsPage({
-  productFamilies,
-  activeMarket,
-  setActiveMarket,
-  activeRefrigerant,
-  setActiveRefrigerant,
-  openProductDetail,
-}) {
+import { Link, useSearchParams } from "react-router-dom";
+import { productFamilies } from "../data/products";
+import { productPath } from "../utils/routes";
+
+const MARKETS = [
+  "Residential",
+  "Light Commercial",
+  "Multi-Position AHU",
+  "Accessories",
+];
+const REFRIGERANTS = ["R454B", "R410A"];
+
+export default function ProductsPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const marketParam = searchParams.get("market");
+  const refrigerantParam = searchParams.get("refrigerant");
+
+  const activeMarket = MARKETS.includes(marketParam)
+    ? marketParam
+    : "Residential";
+  const activeRefrigerant = REFRIGERANTS.includes(refrigerantParam)
+    ? refrigerantParam
+    : "R454B";
+
+  const updateFilter = (key, value) => {
+    const next = new URLSearchParams(searchParams);
+    next.set(key, value);
+    // Filter toggles replace the current entry so the back button still
+    // returns to the previous page rather than each filter change.
+    setSearchParams(next, { replace: true });
+  };
+
   const families = Object.entries(productFamilies || {});
 
-  const titleToImageFilename = (title, refrigerant) => {
+  const titleToImageFilename = (title) => {
     if (!title) return "";
-    // Convert title to lowercase and replace spaces with hyphens
     let baseName = title
       .toLowerCase()
       .replace(/\s+/g, "-")
-      .replace(/[()]/g, "") // Remove parentheses
-      .replace(/r\d+[a-z]+/g, ""); // Remove refrigerant codes like r454b, r410a
-    // Remove any trailing hyphens
+      .replace(/[()]/g, "")
+      .replace(/r\d+[a-z]+/g, "");
     baseName = baseName.replace(/-+$/, "");
-    // Extract refrigerant code (e.g., R410A -> 410a, R454B -> 454b)
-    // const refCode = refrigerant
-    //   .replace(/R/, "")
-    //   .toLowerCase();
     return `${baseName}-cover-454b`;
   };
 
@@ -37,10 +56,6 @@ export default function ProductsPage({
     splitSystemExtreme: "Split System Extreme",
     condenserStandard: "Condenser Standard",
     condenserExtreme: "Condenser Extreme",
-  };
-
-  const handleOpenProduct = (productId) => {
-    openProductDetail(productId);
   };
 
   const cleanModels = (models) =>
@@ -73,7 +88,8 @@ export default function ProductsPage({
   };
 
   const hasOutdoorGroups = (outdoorUnits) =>
-    !!outdoorUnits && Object.values(outdoorUnits).some((models) => hasValidModels(models));
+    !!outdoorUnits &&
+    Object.values(outdoorUnits).some((models) => hasValidModels(models));
 
   const hasIndoorUnits = (units) =>
     Array.isArray(units) &&
@@ -82,7 +98,7 @@ export default function ProductsPage({
     );
 
   const filteredFamilies = families
-    .filter(([_, family]) => {
+    .filter(([, family]) => {
       const eyebrow = (family.eyebrow || "").toLowerCase();
       const refrigerantSpec =
         family.specs?.find((spec) => spec.label === "Refrigerant")?.value || "";
@@ -100,7 +116,7 @@ export default function ProductsPage({
 
       return matchesMarket && matchesRefrigerant;
     })
-    .filter(([_, family]) =>
+    .filter(([, family]) =>
       hasHeatingData(family.singleZoneOutdoorUnits) ||
       hasHeatingData(family.pairings) ||
       hasHeatingData(family.multiZoneOutdoorUnits) ||
@@ -159,16 +175,14 @@ export default function ProductsPage({
                         <ul className="mt-1 list-disc space-y-1 pl-4">
                           {cleanModels(models).map((model) => (
                             <li key={`${familySlug}-${heatingType}-${model}`}>
-                              <button
-                                onClick={() =>
-                                  handleOpenProduct(
-                                    `${familySlug}__${heatingType}__${model}`
-                                  )
-                                }
+                              <Link
+                                to={productPath(
+                                  `${familySlug}__${heatingType}__${model}`
+                                )}
                                 className="cursor-pointer text-sm text-slate-800 hover:text-orange-700"
                               >
                                 {model}
-                              </button>
+                              </Link>
                             </li>
                           ))}
                         </ul>
@@ -179,16 +193,14 @@ export default function ProductsPage({
                 <ul className="mt-2 list-disc space-y-1 pl-4">
                   {cleanModels(values).map((model) => (
                     <li key={`${familySlug}-${heatingType}-${model}`}>
-                      <button
-                        onClick={() =>
-                          handleOpenProduct(
-                            `${familySlug}__${heatingType}__${model}`
-                          )
-                        }
+                      <Link
+                        to={productPath(
+                          `${familySlug}__${heatingType}__${model}`
+                        )}
                         className="cursor-pointer text-sm text-slate-800 hover:text-orange-700"
                       >
                         {model}
-                      </button>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -225,14 +237,12 @@ export default function ProductsPage({
               <ul className="mt-1 list-disc space-y-1 pl-4">
                 {cleanModels(models).map((model) => (
                   <li key={`${slug}-${groupName}-${model}`}>
-                    <button
-                      onClick={() =>
-                        handleOpenProduct(`${slug}__${groupName}__${model}`)
-                      }
+                    <Link
+                      to={productPath(`${slug}__${groupName}__${model}`)}
                       className="cursor-pointer text-sm text-slate-800 hover:text-orange-700"
                     >
                       {model}
-                    </button>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -259,10 +269,10 @@ export default function ProductsPage({
               Refrigerant Platform
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
-              {["R454B", "R410A"].map((refrigerant) => (
+              {REFRIGERANTS.map((refrigerant) => (
                 <button
                   key={refrigerant}
-                  onClick={() => setActiveRefrigerant(refrigerant)}
+                  onClick={() => updateFilter("refrigerant", refrigerant)}
                   className={`cursor-pointer rounded-sm border px-3 py-2 text-xs font-semibold ${
                     activeRefrigerant === refrigerant
                       ? "border-orange-600 bg-orange-50 text-orange-700"
@@ -280,15 +290,10 @@ export default function ProductsPage({
               Application
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
-              {[
-                "Residential",
-                "Light Commercial",
-                "Multi-Position AHU",
-                "Accessories",
-              ].map((market) => (
+              {MARKETS.map((market) => (
                 <button
                   key={market}
-                  onClick={() => setActiveMarket(market)}
+                  onClick={() => updateFilter("market", market)}
                   className={`cursor-pointer rounded-sm border px-3 py-2 text-xs font-semibold ${
                     activeMarket === market
                       ? "border-orange-600 bg-orange-50 text-orange-700"
@@ -311,14 +316,15 @@ export default function ProductsPage({
       </div>
 
       <div className="mt-6 grid gap-6 md:grid-cols-2">
-        {filteredFamilies.map(([slug, family]) => (
+        {filteredFamilies.map(([slug, family], familyIndex) => (
           <div key={slug} className="border border-slate-200 bg-white p-6">
             <div className="h-84 overflow-hidden flex items-center justify-center">
               <img
-                src={`${import.meta.env.BASE_URL}product-images/${titleToImageFilename(family.title, activeRefrigerant)}.png`}
+                src={`${import.meta.env.BASE_URL}product-images/${titleToImageFilename(family.title)}.png`}
                 alt={family.title}
                 className="max-h-full max-w-full object-contain"
-                loading="lazy"
+                loading={familyIndex < 2 ? "eager" : "lazy"}
+                fetchPriority={familyIndex < 2 ? "high" : "auto"}
                 decoding="async"
               />
             </div>
@@ -339,7 +345,7 @@ export default function ProductsPage({
                 {renderHeatingGroups(slug, family.singleZoneOutdoorUnits)}
               </div>
             )}
-            
+
             {hasHeatingData(family.pairings) && (
               <div className="mt-4">
                 <div className="text-sm font-semibold text-slate-900">
@@ -372,14 +378,12 @@ export default function ProductsPage({
                     )
                     .map((unit) => (
                       <li key={unit.model}>
-                        <button
-                          onClick={() =>
-                            handleOpenProduct(`${slug}__indoor__${unit.model}`)
-                          }
+                        <Link
+                          to={productPath(`${slug}__indoor__${unit.model}`)}
                           className="cursor-pointer text-sm text-slate-800 hover:text-orange-700"
                         >
                           {unit.model}
-                        </button>
+                        </Link>
                       </li>
                     ))}
                 </ul>
