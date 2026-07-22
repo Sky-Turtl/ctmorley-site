@@ -159,7 +159,6 @@ export default function ProductDetailPage() {
     operatingRanges = null,
     ports = null,
     mca = null,
-    highlightTags = [],
     unit,
     family,
     selectionType,
@@ -423,19 +422,6 @@ export default function ProductDetailPage() {
                   Document links have not been added for this product yet.
                 </p>
               )}
-
-            {highlightTags.length > 0 && (
-              <div className="mt-5 flex flex-wrap gap-2">
-                {highlightTags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-700"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
           </div>
 
           <div className="border border-slate-200 bg-white p-6">

@@ -6,7 +6,6 @@ import { productPath } from "../utils/routes";
 const navItems = [
   { label: "Home", to: "/" },
   { label: "Products", to: "/products" },
-  { label: "About", to: "/about" },
   { label: "Contact", to: "/contact" },
   { label: "Locator", to: "/locator" },
 ];
