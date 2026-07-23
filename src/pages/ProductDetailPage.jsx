@@ -205,6 +205,24 @@ export default function ProductDetailPage() {
     return partialMatch;
   };
 
+  // Return a submittal only when a filename matches the model exactly (no
+  // partial matches). Used to prefer a unit's own standalone submittal over a
+  // combined pairing sheet.
+  const getExactSubmittalUrl = (name) => {
+    if (!name) return null;
+
+    const normalizedTarget = normalizeSubmittalKey(name);
+
+    for (const [path, module] of Object.entries(submittals)) {
+      const fileName = path.split("/").pop().replace(/\.pdf$/i, "");
+      if (normalizeSubmittalKey(fileName) === normalizedTarget) {
+        return module?.default || module;
+      }
+    }
+
+    return null;
+  };
+
   const getPairedSubmittalUrl = (indoorModel, outdoorModel) => {
     if (!indoorModel || !outdoorModel) return null;
 
@@ -265,8 +283,11 @@ export default function ProductDetailPage() {
   // Get the appropriate submittal URL based on page type
   const submittalUrl = (() => {
     if (isPairingPage) {
-      // For pairing pages, look for the pairing submittal
       if (pairingModels.indoor && pairingModels.outdoor) {
+        // Prefer the wall unit's own standalone submittal when one exists;
+        // otherwise fall back to the combined pairing submittal.
+        const standalone = getExactSubmittalUrl(pairingModels.indoor);
+        if (standalone) return standalone;
         return getPairedSubmittalUrl(pairingModels.indoor, pairingModels.outdoor);
       }
     } else if (selectionType === "indoor") {
