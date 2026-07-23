@@ -1,11 +1,12 @@
+import { Link, useSearchParams } from "react-router-dom";
 import { getUnitImagePath } from "../utils/getUnitImagePath";
+import { getSearchResults } from "../utils/search";
+import { productPath } from "../utils/routes";
 
-export default function SearchResultsPage({
-  query,
-  results,
-  openProductDetail,
-}) {
-  const filteredResults = results || [];
+export default function SearchResultsPage() {
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("q") || "";
+  const filteredResults = getSearchResults(query, 100);
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-8">
@@ -34,10 +35,9 @@ export default function SearchResultsPage({
             );
 
             return (
-              <button
+              <Link
                 key={item.id}
-                type="button"
-                onClick={() => openProductDetail(item.id)}
+                to={productPath(item.id)}
                 className="flex cursor-pointer items-center gap-3 border border-slate-200 bg-white px-4 py-3 text-left transition hover:border-orange-300 hover:bg-orange-50"
               >
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center border border-slate-200 bg-white">
@@ -63,7 +63,7 @@ export default function SearchResultsPage({
                     {item.subtitle}
                   </div>
                 </div>
-              </button>
+              </Link>
             );
           })}
         </div>

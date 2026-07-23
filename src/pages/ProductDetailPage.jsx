@@ -1,23 +1,20 @@
 import { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { productFamilies } from "../data/products";
 import { getProductDetail } from "../data/productDetail";
 import { getUnitImagePath } from "../utils/getUnitImagePath";
+import { productPath, decodeProductId } from "../utils/routes";
 
 const submittals = import.meta.glob("../assets/Submittals/*.pdf", { eager: true });
 
-export default function ProductDetailPage({
-  productFamilies,
-  activeProductId,
-  openProductDetail,
-}) {
+export default function ProductDetailPage() {
+  const { id } = useParams();
+  const activeProductId = decodeProductId(id);
   const detail = getProductDetail(productFamilies, activeProductId);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
-
-  const handleBack = () => {
-    window.history.back();
-  };
+  }, [activeProductId]);
 
   const specialOutdoorPairings = {
     "MOU-B09H-2": "MIU-B09W-2 / MOU-B09H-2",
@@ -120,25 +117,24 @@ export default function ProductDetailPage({
     }
 
     return (
-      <button
-        type="button"
-        onClick={() => openProductDetail(productId)}
+      <Link
+        to={productPath(productId)}
         className="cursor-pointer bg-transparent p-0 text-left text-sm text-slate-700 transition hover:text-orange-700"
       >
         {model}
-      </button>
+      </Link>
     );
   };
 
   if (!detail) {
     return (
       <section className="mx-auto max-w-5xl px-6 py-10">
-        <button
-          onClick={handleBack}
-          className="cursor-pointer mb-6 text-sm font-semibold text-orange-700 hover:text-orange-800"
+        <Link
+          to="/products"
+          className="inline-block cursor-pointer mb-6 text-sm font-semibold text-orange-700 hover:text-orange-800"
         >
           ← Back to Products
-        </button>
+        </Link>
 
         <div className="border border-slate-200 bg-white p-8">
           <h2 className="text-2xl font-semibold text-slate-900">
@@ -163,7 +159,6 @@ export default function ProductDetailPage({
     operatingRanges = null,
     ports = null,
     mca = null,
-    highlightTags = [],
     unit,
     family,
     selectionType,
@@ -378,12 +373,12 @@ export default function ProductDetailPage({
   
   return (
     <section className="mx-auto max-w-6xl px-6 py-10">
-      <button
-        onClick={handleBack}
-        className="mb-6 cursor-pointer text-sm font-semibold text-orange-700 hover:text-orange-800"
+      <Link
+        to="/products"
+        className="inline-block mb-6 cursor-pointer text-sm font-semibold text-orange-700 hover:text-orange-800"
       >
         ← Back to Products
-      </button>
+      </Link>
 
       <div className="grid items-start gap-8 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="space-y-6">
@@ -394,7 +389,7 @@ export default function ProductDetailPage({
                   src={getUnitImagePath(unit?.model || detail?.model, unit)}
                   alt={unit?.model || detail?.model}
                   className="max-h-full max-w-full object-contain p-4"
-                  loading="lazy"
+                  fetchPriority="high"
                   decoding="async"
                 />
               ) : (
@@ -427,19 +422,6 @@ export default function ProductDetailPage({
                   Document links have not been added for this product yet.
                 </p>
               )}
-
-            {highlightTags.length > 0 && (
-              <div className="mt-5 flex flex-wrap gap-2">
-                {highlightTags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-700"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
           </div>
 
           <div className="border border-slate-200 bg-white p-6">
