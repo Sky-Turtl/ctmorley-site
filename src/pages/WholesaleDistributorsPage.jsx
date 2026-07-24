@@ -159,8 +159,8 @@ export default function WholesaleDistributorsPage() {
 
                   <div>
                     <div className="text-sm font-semibold text-slate-900">Phone</div>
-                    <a href="tel:+17183861234" className="mt-2 block text-sm text-orange-700">
-                      (718) 386-1234
+                    <a href="tel:+17186612180" className="mt-2 block text-sm text-orange-700">
+                      (718) 661-2180
                     </a>
                   </div>
 
