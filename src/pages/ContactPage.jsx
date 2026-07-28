@@ -5,14 +5,16 @@ import SectionTitle from "../components/SectionTitle";
 // Where contact form submissions are emailed.
 //
 // This uses FormSubmit.co, which needs no account or API key — it forwards
-// submissions to whatever address is set below. Replace this placeholder with
-// the real CT Morley inbox once it exists; that's the only change required.
+// submissions to whatever address is set below, cc'ing the addresses in
+// CONTACT_CC.
 //
-// NOTE: FormSubmit sends a one-time activation email to this address the first
-// time the form is submitted. You must click the link in that email before any
-// messages start forwarding, so use a real inbox you can actually open.
+// NOTE: FormSubmit sends a one-time activation email to each new address the
+// first time the form is submitted to it (this applies to CONTACT_EMAIL and
+// every address in CONTACT_CC). Someone must click the link in each of those
+// emails before messages start forwarding to that address.
 // ---------------------------------------------------------------------------
-const CONTACT_EMAIL = "ctmorley-inbox@example.com";
+const CONTACT_EMAIL = "bchen@economyrhvac.com";
+const CONTACT_CC = "dchen@economyrhvac.com,ctao@economyrhvac.com";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -78,6 +80,7 @@ export default function ContactPage() {
             _subject: form.subject.trim()
               ? `Website contact: ${form.subject.trim()}`
               : "New website contact form submission",
+            _cc: CONTACT_CC,
             _template: "table",
           }),
         }
