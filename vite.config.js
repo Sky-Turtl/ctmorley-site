@@ -5,7 +5,7 @@ import { copyFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 // GitHub Pages is a static host with no SPA rewrite. Serving a copy of
-// index.html as 404.html lets deep links like /ctmorley-site/products boot
+// index.html as 404.html lets deep links like /products boot
 // the app instead of returning a hard 404.
 function spaFallback() {
   let outDir;
@@ -25,5 +25,5 @@ function spaFallback() {
 
 export default defineConfig({
   plugins: [react(), tailwindcss(), spaFallback()],
-  base: "/ctmorley-site/",
+  base: "/",
 });
