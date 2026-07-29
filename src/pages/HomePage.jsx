@@ -69,13 +69,6 @@ export default function HomePage() {
               >
                 View Products
               </Link>
-
-              <Link
-                to="/contact"
-                className="cursor-pointer rounded-sm border border-slate-300 bg-white/70 px-7 py-3.5 text-sm font-semibold text-slate-800 backdrop-blur-sm transition hover:border-orange-500 hover:text-orange-700"
-              >
-                Contact Us
-              </Link>
             </div>
           </div>
         </div>
