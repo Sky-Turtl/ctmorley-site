@@ -14,7 +14,7 @@ import SectionTitle from "../components/SectionTitle";
 // emails before messages start forwarding to that address.
 // ---------------------------------------------------------------------------
 const CONTACT_EMAIL = "bchen@economyrhvac.com";
-const CONTACT_CC = "dchen@economyrhvac.com,ctao@economyrhvac.com";
+const CONTACT_CC = "mchan@economyrhvac.com,wchen@economyrhvac.com,ctao@economyrhvac.com";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
