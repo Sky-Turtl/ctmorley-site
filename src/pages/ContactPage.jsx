@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SectionTitle from "../components/SectionTitle";
 
 // ---------------------------------------------------------------------------
@@ -8,6 +8,12 @@ import SectionTitle from "../components/SectionTitle";
 // submissions to whatever address is set below, cc'ing the addresses in
 // CONTACT_CC.
 //
+// The form posts as a normal (non-AJAX) submission so FormSubmit's captcha
+// challenge actually runs — their captcha is skipped entirely for AJAX/fetch
+// submissions. FormSubmit redirects back to CONTACT_NEXT_URL after a
+// successful submission, and this page shows the success message when it
+// sees the ?sent=true query param.
+//
 // NOTE: FormSubmit sends a one-time activation email to each new address the
 // first time the form is submitted to it (this applies to CONTACT_EMAIL and
 // every address in CONTACT_CC). Someone must click the link in each of those
@@ -15,6 +21,7 @@ import SectionTitle from "../components/SectionTitle";
 // ---------------------------------------------------------------------------
 const CONTACT_EMAIL = "bchen@economyrhvac.com";
 const CONTACT_CC = "mchan@economyrhvac.com,wchen@economyrhvac.com,ctao@economyrhvac.com";
+const CONTACT_SUBJECT = "New website contact form submission";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -29,8 +36,17 @@ const emptyForm = {
 export default function ContactPage() {
   const [form, setForm] = useState(emptyForm);
   const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState("idle"); // idle | submitting | success | error
-  const [submitError, setSubmitError] = useState("");
+  const [status, setStatus] = useState("idle"); // idle | success
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("sent") === "true") {
+      setStatus("success");
+      const url = new URL(window.location.href);
+      url.searchParams.delete("sent");
+      window.history.replaceState({}, "", url);
+    }
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -50,55 +66,20 @@ export default function ContactPage() {
     return next;
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setSubmitError("");
-
+  const handleSubmit = (event) => {
     const nextErrors = validate();
     if (Object.keys(nextErrors).length > 0) {
+      event.preventDefault();
       setErrors(nextErrors);
-      return;
     }
-
-    setStatus("submitting");
-
-    try {
-      const response = await fetch(
-        `https://formsubmit.co/ajax/${encodeURIComponent(CONTACT_EMAIL)}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            name: form.name.trim(),
-            email: form.email.trim(),
-            phone: form.phone.trim(),
-            subject: form.subject.trim(),
-            message: form.message.trim(),
-            _subject: form.subject.trim()
-              ? `Website contact: ${form.subject.trim()}`
-              : "New website contact form submission",
-            _cc: CONTACT_CC,
-            _template: "table",
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`Request failed with status ${response.status}`);
-      }
-
-      setStatus("success");
-      setForm(emptyForm);
-    } catch {
-      setStatus("error");
-      setSubmitError(
-        "Something went wrong sending your message. Please try again in a moment."
-      );
-    }
+    // Otherwise let the browser submit the form normally to FormSubmit,
+    // which runs its captcha challenge before forwarding the email.
   };
+
+  const nextUrl = `${window.location.origin}${window.location.pathname}?sent=true`;
+  const computedSubject = form.subject.trim()
+    ? `Website contact: ${form.subject.trim()}`
+    : CONTACT_SUBJECT;
 
   const fieldClass = (name) =>
     `w-full rounded-sm border px-3 py-2 text-sm text-slate-800 shadow-sm focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-200 ${
@@ -137,7 +118,13 @@ export default function ContactPage() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} noValidate className="space-y-5">
+              <form
+                action={`https://formsubmit.co/${CONTACT_EMAIL}`}
+                method="POST"
+                onSubmit={handleSubmit}
+                noValidate
+                className="space-y-5"
+              >
                 {/* Honeypot field for basic spam protection (hidden from users). */}
                 <input
                   type="text"
@@ -147,6 +134,16 @@ export default function ContactPage() {
                   className="hidden"
                   aria-hidden="true"
                 />
+                <input type="hidden" name="_cc" value={CONTACT_CC} readOnly />
+                <input
+                  type="hidden"
+                  name="_subject"
+                  value={computedSubject}
+                  readOnly
+                />
+                <input type="hidden" name="_template" value="table" readOnly />
+                <input type="hidden" name="_captcha" value="true" readOnly />
+                <input type="hidden" name="_next" value={nextUrl} readOnly />
 
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
@@ -247,18 +244,11 @@ export default function ContactPage() {
                   )}
                 </div>
 
-                {status === "error" && (
-                  <div className="rounded-sm border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-                    {submitError}
-                  </div>
-                )}
-
                 <button
                   type="submit"
-                  disabled={status === "submitting"}
-                  className="inline-flex items-center justify-center rounded-sm bg-orange-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="inline-flex items-center justify-center rounded-sm bg-orange-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-orange-700"
                 >
-                  {status === "submitting" ? "Sending…" : "Send message"}
+                  Send message
                 </button>
 
                 <p className="text-xs text-slate-500">
