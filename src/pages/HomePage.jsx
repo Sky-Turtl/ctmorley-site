@@ -35,9 +35,12 @@ export default function HomePage() {
           className="pointer-events-none absolute top-16 right-0 h-80 w-80 rounded-full bg-amber-100/40 blur-3xl"
         />
 
+        <div className="pt-8 sm:pt-10 lg:hidden">
+          <ProductCarousel items={floatingUnits} />
+        </div>
+
         <div className="relative mx-auto flex min-h-[calc(100vh-5rem)] max-w-7xl flex-col items-center justify-center px-6 py-20 sm:py-24">
-          {/* Product lineup above the text: static arch on large screens,
-              rotating carousel on smaller screens */}
+          {/* Product lineup above the text (large screens only) */}
           <div
             aria-hidden="true"
             className="mb-12 hidden w-full items-center justify-center gap-6 lg:flex"
@@ -51,10 +54,6 @@ export default function HomePage() {
                 loading="eager"
               />
             ))}
-          </div>
-
-          <div className="relative left-1/2 mb-12 w-screen -ml-[50vw]">
-            <ProductCarousel items={floatingUnits} />
           </div>
 
           {/* Center content */}
