@@ -46,7 +46,7 @@ function ProductCarousel({ items }) {
     <div aria-hidden="true" className="w-full overflow-hidden lg:hidden">
       <div
         ref={trackRef}
-        className="flex w-max items-center will-change-transform select-none"
+        className="flex w-max items-center gap-6 bg-gradient-to-b from-orange-50 to-white will-change-transform select-none"
       >
         <div ref={firstSetRef} className="flex items-center gap-6 pr-6">
           {items.map((unit, index) => (
