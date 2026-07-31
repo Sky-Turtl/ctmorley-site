@@ -53,7 +53,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="relative left-1/2 mb-12 w-screen -translate-x-1/2">
+          <div className="relative left-1/2 mb-12 w-screen -ml-[50vw]">
             <ProductCarousel items={floatingUnits} />
           </div>
 
