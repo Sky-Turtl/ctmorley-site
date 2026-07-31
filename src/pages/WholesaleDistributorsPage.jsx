@@ -132,7 +132,7 @@ export default function WholesaleDistributorsPage() {
             {selectedState === "" ? (
               <div className="space-y-4">
                 <p className="text-base leading-7 text-slate-600">
-                  Choose a state from the dropdown to see distributor details or a coming soon message.
+                  Choose a state from the dropdown to see distributor details.
                 </p>
               </div>
             ) : isNewYork ? (
