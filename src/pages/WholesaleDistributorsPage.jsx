@@ -91,7 +91,7 @@ export default function WholesaleDistributorsPage() {
           <SectionTitle
             eyebrow="Wholesale Distribution"
             title="Find a Distributor"
-            description="CT Morley is proud to partner with wholesale distributors across the United States. Use the map and dropdown below to find a distributor in your state."
+            description="CT Morley is proud to partner with wholesale distributors across the United States."
           />
         </div>
       </section>
@@ -132,12 +132,8 @@ export default function WholesaleDistributorsPage() {
             {selectedState === "" ? (
               <div className="space-y-4">
                 <p className="text-base leading-7 text-slate-600">
-                  Select a state to view available wholesale distributors. Until a state is chosen, the map shows the entire United States.
+                  Choose a state from the dropdown to see distributor details or a coming soon message.
                 </p>
-                <div className="rounded-sm border border-dashed border-slate-300 bg-white p-6 text-sm text-slate-600">
-                  <p className="font-semibold text-slate-900">No state selected</p>
-                  <p className="mt-2">Choose a state from the dropdown to see distributor details or a coming soon message.</p>
-                </div>
               </div>
             ) : isNewYork ? (
               <div className="space-y-6">
