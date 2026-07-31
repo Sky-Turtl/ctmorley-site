@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import SectionTitle from "../components/SectionTitle";
+import ProductCarousel from "../components/ProductCarousel";
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -35,7 +36,8 @@ export default function HomePage() {
         />
 
         <div className="relative mx-auto flex min-h-[calc(100vh-5rem)] max-w-7xl flex-col items-center justify-center px-6 py-20 sm:py-24">
-          {/* Product lineup above the text (large screens only) */}
+          {/* Product lineup above the text: static arch on large screens,
+              rotating carousel on smaller screens */}
           <div
             aria-hidden="true"
             className="mb-12 hidden w-full items-center justify-center gap-6 lg:flex"
@@ -49,6 +51,10 @@ export default function HomePage() {
                 loading="eager"
               />
             ))}
+          </div>
+
+          <div className="mb-12 w-full">
+            <ProductCarousel items={floatingUnits} />
           </div>
 
           {/* Center content */}
