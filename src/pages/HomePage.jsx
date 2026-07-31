@@ -23,7 +23,7 @@ const floatingUnits = [
 export default function HomePage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-b from-orange-50 to-white">
+      <section className="relative min-h-[calc(100vh-5rem)] overflow-hidden bg-gradient-to-b from-orange-50 to-white">
         {/* Soft blurred gradient accents kept in the upper area so the lower
             half stays clean white and fades seamlessly into the page. */}
         <div
@@ -39,7 +39,7 @@ export default function HomePage() {
           <ProductCarousel items={floatingUnits} />
         </div>
 
-        <div className="relative mx-auto flex min-h-[calc(100vh-5rem)] max-w-7xl flex-col items-center justify-center px-6 pb-20 pt-0 sm:pb-24 lg:py-20">
+        <div className="relative mx-auto flex max-w-7xl flex-col items-center justify-center px-6 pb-20 pt-0 sm:pb-24 lg:py-20">
           {/* Product lineup above the text (large screens only) */}
           <div
             aria-hidden="true"
