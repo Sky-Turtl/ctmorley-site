@@ -2,6 +2,14 @@ import { useEffect, useRef } from "react";
 
 const SPEED = 0.45;
 
+const OFFSET_CLASS_PATTERN = /^(translate-y-|-translate-y-|m[lrtb]?-)/;
+
+const stripOffsetClasses = (className) =>
+  className
+    .split(" ")
+    .filter((token) => !OFFSET_CLASS_PATTERN.test(token))
+    .join(" ");
+
 function ProductCarousel({ items }) {
   const trackRef = useRef(null);
   const firstSetRef = useRef(null);
@@ -47,7 +55,7 @@ function ProductCarousel({ items }) {
               src={unit.src}
               alt=""
               draggable={false}
-              className={`${unit.className} shrink-0 object-contain mix-blend-multiply`}
+              className={`${stripOffsetClasses(unit.className)} shrink-0 object-contain mix-blend-multiply`}
             />
           ))}
         </div>
@@ -59,7 +67,7 @@ function ProductCarousel({ items }) {
               src={unit.src}
               alt=""
               draggable={false}
-              className={`${unit.className} shrink-0 object-contain mix-blend-multiply`}
+              className={`${stripOffsetClasses(unit.className)} shrink-0 object-contain mix-blend-multiply`}
             />
           ))}
         </div>
