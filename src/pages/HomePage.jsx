@@ -35,7 +35,7 @@ export default function HomePage() {
           className="pointer-events-none absolute top-16 right-0 h-80 w-80 rounded-full bg-amber-100/40 blur-3xl"
         />
 
-        <div className="pt-8 sm:pt-10 lg:hidden">
+        <div className="pt-20 sm:pt-24 lg:hidden">
           <ProductCarousel items={floatingUnits} />
         </div>
 
