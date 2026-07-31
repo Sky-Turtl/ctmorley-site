@@ -35,11 +35,11 @@ export default function HomePage() {
           className="pointer-events-none absolute top-16 right-0 h-80 w-80 rounded-full bg-amber-100/40 blur-3xl"
         />
 
-        <div className="pt-20 sm:pt-24 lg:hidden">
+        <div className="pt-20 sm:pt-24 mb-12 lg:hidden">
           <ProductCarousel items={floatingUnits} />
         </div>
 
-        <div className="relative mx-auto flex min-h-[calc(100vh-5rem)] max-w-7xl flex-col items-center justify-center px-6 pb-20 pt-8 sm:pb-24 sm:pt-10 lg:py-20">
+        <div className="relative mx-auto flex min-h-[calc(100vh-5rem)] max-w-7xl flex-col items-center justify-center px-6 pb-20 pt-0 sm:pb-24 lg:py-20">
           {/* Product lineup above the text (large screens only) */}
           <div
             aria-hidden="true"
