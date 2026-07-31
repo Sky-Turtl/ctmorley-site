@@ -23,7 +23,7 @@ const floatingUnits = [
 export default function HomePage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-gradient-to-b from-orange-50 to-white">
+      <section className="relative min-h-[calc(100vh-5rem)] overflow-hidden bg-gradient-to-b from-orange-50 to-white">
         {/* Soft blurred gradient accents kept in the upper area so the lower
             half stays clean white and fades seamlessly into the page. */}
         <div
