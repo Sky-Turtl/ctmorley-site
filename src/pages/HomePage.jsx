@@ -39,7 +39,7 @@ export default function HomePage() {
           <ProductCarousel items={floatingUnits} />
         </div>
 
-        <div className="relative mx-auto flex min-h-[calc(100vh-5rem)] max-w-7xl flex-col items-center justify-center px-6 py-20 sm:py-24">
+        <div className="relative mx-auto flex min-h-[calc(100vh-5rem)] max-w-7xl flex-col items-center justify-center px-6 pb-20 pt-8 sm:pb-24 sm:pt-10 lg:py-20">
           {/* Product lineup above the text (large screens only) */}
           <div
             aria-hidden="true"
